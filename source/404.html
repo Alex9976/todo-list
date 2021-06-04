@@ -1,0 +1,9 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<script>
+let params = window.location.search.substr(1);
+window.location = window.location.origin + "#" + window.location.pathname + (params ? "?" + params : "");
+</script>
+</head>
+</html>

@@ -1,0 +1,59 @@
+{
+  "compilerOptions": {
+    // General
+    "pretty": true,
+    "watch": false,
+    "listFiles": false,
+    "inlineSources": false,
+    "removeComments": false, // keep comments to make tests coverage working
+    // Targets & outputs
+    "target": "es6",
+    "module": "es6",
+    "moduleResolution": "node",
+    "lib": [
+      "es2016",
+      "dom"
+    ],
+    "noEmit": false,
+    "noLib": false,
+    "baseUrl": "source",
+    // "rootDir": "source",
+    "outDir": "./build/output",
+    "declarationDir": "./build/output",
+    "declaration": true,
+    // Debugging
+    "sourceMap": true,
+    "inlineSourceMap": false,
+    // Strictness
+    "strict": true,
+    "alwaysStrict": true,
+    "strictNullChecks": true,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": false,
+    "suppressImplicitAnyIndexErrors": true, // this allows access to any property on objects via bracket notation
+    // Other
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "jsx": "react",
+    "paths": {
+    },
+    "plugins": [
+      {
+        "name": "typescript-styled-plugin",
+        "lint": {
+          "validProperties": [
+            "label"
+          ]
+        }
+      }
+    ]
+  },
+  "include": [
+    "source/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+  ]
+}

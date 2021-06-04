@@ -1,0 +1,6 @@
+node_modules
+.eslintrc.js
+server.js
+webpack.config.js
+source/assets/sheets/**/*.ts
+ava.config.js

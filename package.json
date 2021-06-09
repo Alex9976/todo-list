@@ -1,25 +1,4 @@
 {
-  "name": "nevod-web",
-  "version": "1.0.0",
-  "description": "Nezaboodka Nevod Website",
-  "private": true,
-  "main": "index.ts",
-  "repository": {
-    "type": "git",
-    "url": "https://gitlab.com/nezaboodka/nevod.web.public.git"
-  },
-  "keywords": [
-    "nezaboodka",
-    "nevod",
-    "reactronic",
-    "reactive"
-  ],
-  "author": "Dmitry Surkov <dmitry.surkov@nezaboodka.com> (https://github.com/dmitry-surkov)",
-  "license": "Apache 2.0",
-  "bugs": {
-    "url": "https://gitlab.com/nezaboodka/nevod.web.public/-/issues"
-  },
-  "homepage": "https://gitlab.com/nezaboodka/nevod.web.public/-/blob/master/README.md",
   "scripts": {
     "lint:fix": "eslint --fix \"source/**/*.ts\"",
     "start": "cross-env NODE_ENV=development node server.js",

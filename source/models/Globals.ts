@@ -1,4 +1,3 @@
-
 import { ObservableObject, Transaction, Monitor, transaction } from 'reactronic'
 
 export class Resizing extends ObservableObject {

@@ -1,4 +1,3 @@
-
 import { ObservableObject, unobservable } from 'reactronic'
 
 export class Page extends ObservableObject {

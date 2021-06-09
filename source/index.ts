@@ -1,4 +1,3 @@
-
 import { Transaction } from 'reactronic'
 import { configureDebugging } from './debugging'
 import { Globals } from './models/Globals'

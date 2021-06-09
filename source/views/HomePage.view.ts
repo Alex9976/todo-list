@@ -9,8 +9,7 @@ export function HomePageView(app: App) {
     PageView(app.homePage, e => {
       Div('Description', e => {
         e.className = style.class.Description
-        e.innerHTML = `Nevod is a
-          <br />`
+        e.innerHTML = '<div>Todo</div>'
       })
     })
   )

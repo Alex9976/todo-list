@@ -1,4 +1,3 @@
-
 export interface Theme {
   readonly name: string
 

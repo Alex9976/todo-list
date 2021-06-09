@@ -1,4 +1,3 @@
-
 import { css } from '@emotion/css'
 import { restyler } from 'reactronic-front'
 import { themes } from './Themes'
@@ -30,6 +29,60 @@ export const style = restyler(() => {
         grid-template-rows: auto auto 1fr;
         grid-template-columns: 1fr 1fr;
       }
+    `,
+
+    Task: css`
+      padding: 7px 15px;
+      cursor: pointer;
+      margin: 4px 0;
+      width: 100%;
+      border-radius: 3px;
+      background-color: rgba(96, 96, 96, 1);
+      transition: background-color .2s ease;
+      :hover {
+        transition: background-color .2s ease;
+        background-color: rgba(104, 104, 104, 1);
+      }
+    `,
+
+    Submit: css`
+      padding: 7px 15px;
+      cursor: pointer;
+      border-radius: 0 3px 3px 0;
+      background-color: rgba(0, 0, 0, 0.5);
+      transition: background-color .2s ease;
+      :hover {
+        transition: background-color .2s ease;
+        background-color: rgba(0, 0, 0, 0.1);
+      }
+    `,
+
+    InputTask: css`
+      margin: 0;
+      position: absolute;
+      font-size: 25px;
+      display: flex;
+      align-items: center;
+      left: 0;
+      bottom: 20px;
+      width: 100%;
+      justify-content: center;
+    `,
+
+    Input: css`
+      margin: 0;
+      width: 94%;
+      height: 45px;
+      border-radius: 3px 0 0 3px;
+      background-color: rgba(0, 0, 0, 0.5);
+      transition: background-color .2s ease;
+      :hover, :focus {
+        transition: background-color .2s ease;
+        background-color: rgba(0, 0, 0, 0.1);
+      }
+
+      /* TODO: Delete */
+      /*border: 1px solid #f00;*/
     `,
 
     Title: css`

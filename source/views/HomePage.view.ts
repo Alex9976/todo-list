@@ -11,6 +11,7 @@ export function HomePageView(app: App) {
     PageView(app.homePage, e => {
       Div('List', e => {
         e.className = style.class.Description
+        tasks[2].isActive = false //delete after correct set state
         tasks.forEach(element => {
           ShowTask(element)
         })
@@ -35,14 +36,28 @@ function ShowTask(task: Task) {
   return (
     UL('Task', e => {
       e.className = style.class.Task
-      Div('Task-element', e => {
-        e.className = style.class.TaskElement
-        e.innerHTML = task.text
-      })
-      Div('Delete', e => {
-        e.className = style.class.Delete
-        e.innerHTML = 'Delete'
-      })
+      if (task.isActive)
+      {
+        Div('Task-element', e => {
+          e.className = style.class.TaskElement
+          e.innerHTML = task.text
+        })
+        Div('Delete', e => {
+          e.className = style.class.Delete
+          e.innerHTML = 'Delete'
+        })
+      }
+      else
+      {
+        Div('Task-element', e => {
+          e.className = style.class.InactiveTaskElement
+          e.innerHTML = task.text
+        })
+        Div('Delete', e => {
+          e.className = style.class.InactiveDelete
+          e.innerHTML = 'Delete'
+        })
+      }
     })
   )
 }

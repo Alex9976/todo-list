@@ -99,7 +99,7 @@ export const style = restyler(() => {
       transition: background-color .2s ease;
       :hover {
         transition: background-color .2s ease;
-        background-color: rgba(0, 128, 0, .9);
+        background-color: rgba(104, 104, 104, 1);
       }
     `,
     InactiveTaskElement: css`
@@ -107,10 +107,13 @@ export const style = restyler(() => {
       margin: 0;
       padding: 9px 10px;
       width: 100%;
-      border-radius: 3px 3px 3px 3px;
-      background-color: rgba(96, 96, 96, 1);
+      border-radius: 3px 0 0 3px;
+      background-color: rgba(96, 96, 96, .35);
       transition: background-color .2s ease;
-      opacity: .35;
+      :hover {
+        transition: background-color .2s ease;
+        background-color: rgba(108, 108, 108, .35);
+      }
     `,
 
     RightSide,

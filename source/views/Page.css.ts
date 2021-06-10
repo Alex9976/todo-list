@@ -99,6 +99,11 @@ export const style = restyler(() => {
       background-color: rgba(96, 96, 96, 1);
       transition: background-color .2s ease;
       :hover {
+        border:1px solid rgba(0, 150, 0, .3);
+        -moz-box-shadow:0 0 20px rgba(0, 150, 0, 1);
+        -webkit-box-shadow:0 0 20px rgba(0, 150, 0, 1);
+        box-shadow:0 0 20px rgba(0, 150, 0, 1);
+
         transition: background-color .2s ease;
         background-color: rgba(104, 104, 104, 1);
       }

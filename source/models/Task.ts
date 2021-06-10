@@ -1,6 +1,6 @@
 export class Task {
   readonly text: string
-  readonly creationDate: Date
+  readonly creationDate: Date;
   isActive: boolean
 
   constructor(text: string) {

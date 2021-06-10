@@ -17,9 +17,9 @@ export const style = restyler(() => {
   `
 
   return {
-
     Submit: css`
       height: 45px;
+      user-select: none;
       padding: 7px 15px;
       cursor: pointer;
       border-radius: 0 4px 4px 0;
@@ -68,6 +68,7 @@ export const style = restyler(() => {
 
     Delete: css`
       margin: 0;
+      user-select: none;
       padding: 9px 15px;
       border-radius: 0 3px 3px 0;
       background-color: rgba(115, 115, 115, 1);
@@ -79,14 +80,14 @@ export const style = restyler(() => {
     `,
     InactiveDelete: css`
     margin: 0;
+    user-select: none;
     padding: 9px 15px;
     border-radius: 0 3px 3px 0;
-    opacity: 0.6;
-    background-color: rgba(115, 115, 115, 1);
+    background-color: rgba(115, 115, 115, 0.5);
     transition: background-color .2s ease;
     :hover, :focus {
       transition: background-color .2s ease;
-      background-color: rgba(200, 0, 0, 1);
+      background-color: rgba(200, 0, 0, 0.5);
     }
   `,
 

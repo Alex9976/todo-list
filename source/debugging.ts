@@ -7,7 +7,7 @@ export function configureDebugging(): void {
   Reactronic.setProfilingMode(false, {
     asyncActionDurationWarningThreshold: Number.MAX_SAFE_INTEGER,
     mainThreadBlockingWarningThreshold: 5,
-    repetitiveReadWarningThreshold: Number.MAX_SAFE_INTEGER,
+    //repetitiveReadWarningThreshold: Number.MAX_SAFE_INTEGER, ???
     garbageCollectionSummaryInterval: Number.MAX_SAFE_INTEGER,
   })
   trace(false, 'r', 'SetPropValues')

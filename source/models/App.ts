@@ -1,4 +1,4 @@
-import { isolated, ObservableObject, reaction, Ref, unobservable } from 'reactronic'
+import { ObservableObject, reaction, Ref, unobservable } from 'reactronic'
 import { Page } from './Page'
 
 export class App extends ObservableObject {

@@ -1,9 +1,12 @@
 import { ObservableObject, reaction, Ref, unobservable } from 'reactronic'
 import { Page } from './Page'
+import { TaskList } from './TaskList'
 
 export class App extends ObservableObject {
   @unobservable readonly version: string
   @unobservable readonly homePage: Page
+  @unobservable taskList: TaskList = new TaskList()
+
   activePage: Page
 
   constructor(version: string) {

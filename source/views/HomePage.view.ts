@@ -1,48 +1,47 @@
-import { Div, Input, UL } from 'reactronic-front'
+import { Div, Input } from 'reactronic-front'
 import { PageView } from './Page.view'
 import { style } from './Page.css'
 import { App } from '../models/App'
 import { Task } from '../models/Task'
-
-const tasks: Task[] = [new Task('Task1'), new Task('Task2'), new Task('Task3')]
+import { TaskLine } from './TaskLine.view'
 
 export function HomePageView(app: App) {
   return (
     PageView(app.homePage, e => {
       Div('List', e => {
         e.className = style.class.Description
-        tasks[2].isActive = false //delete after correct set state
-        tasks.forEach(element => {
-          ShowTask(element)
+        app.taskList.list.forEach(element => {
+          TaskLine(app.taskList.list.indexOf(element).toString(), element)
         })
+        TaskLine('-1', app.taskList.task)
       })
       Div('Task-input', e => {
+        let submitInput: HTMLInputElement
         e.className = style.class.InputTask
         Input('Task', e => {
+          submitInput = e
           e.placeholder = 'Input your task'
           e.className = style.class.Input
           e.type = 'text'
         })
         Div('Submit', e => {
+          e.onclick = () => {
+            if (submitInput.value != '') {
+              app.taskList.addTask(submitInput.value)
+              submitInput.value = ''
+            }
+          }
+          submitInput.onkeydown = e => {
+            if (e.key == 'Enter') {
+              if (submitInput.value != '') {
+                app.taskList.addTask(submitInput.value)
+                submitInput.value = ''
+              }
+            }
+          }
           e.className = style.class.Submit
           e.innerHTML = 'Add'
         })
-      })
-    })
-  )
-}
-
-function ShowTask(task: Task) {
-  return (
-    UL('Task', e => {
-      e.className = style.class.Task
-      Div('Task-element', e => {
-        e.className = task.isActive ? style.class.TaskElement : style.class.InactiveTaskElement
-        e.innerHTML = task.text
-      })
-      Div('Delete', e => {
-        e.className = task.isActive ? style.class.Delete : style.class.InactiveDelete
-        e.innerHTML = 'Delete'
       })
     })
   )

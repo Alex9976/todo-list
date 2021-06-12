@@ -5,7 +5,7 @@ import { Task } from './Task'
 export class App extends ObservableObject {
   @unobservable readonly version: string
   @unobservable readonly homePage: Page
-  @unobservable t = [new Task('22')]
+  taskList: Task[] = []
   activePage: Page
 
   constructor(version: string) {
@@ -14,21 +14,33 @@ export class App extends ObservableObject {
     this.homePage = new Page('/home', '<img src="assets/home.svg"/>', 'Todo')
     this.activePage = this.homePage
     this.activePage.isActive = true
+    const saveTasks = JSON.parse(localStorage.getItem('tasks') as string) as Task[]
+    if (saveTasks != null) {
+      saveTasks.forEach(element => {
+        const task = new Task(element.text)
+        task.isActive = element.isActive
+        this.taskList.push(task)
+      })
+    }
   }
 
   @transaction
   addTask(text: string): void {
-    this.t.push(new Task(text))
+    const newTaskList = this.taskList.toMutable()
+    newTaskList.push(new Task(text))
+    this.taskList = newTaskList
   }
 
   @transaction
   deleteTask(task: Task): void {
-    this.t.splice(this.t.indexOf(task), 1)
+    const newTaskList = this.taskList.toMutable()
+    newTaskList.splice(this.taskList.indexOf(task), 1)
+    this.taskList = newTaskList
   }
 
   @reaction
   updateTasks(): void {
-    localStorage.setItem('tasks', JSON.stringify(this.t))
+    localStorage.setItem('tasks', JSON.stringify(this.taskList))
   }
 
 }

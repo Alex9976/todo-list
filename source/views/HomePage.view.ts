@@ -2,23 +2,20 @@ import { Div, Input } from 'reactronic-front'
 import { PageView } from './Page.view'
 import { style } from './Page.css'
 import { App } from '../models/App'
-import { Task } from '../models/Task'
 import { TaskLine } from './TaskLine.view'
-
-
 
 export function HomePageView(app: App) {
   return (
     PageView(app.homePage, e => {
       Div('List', e => {
         e.className = style.class.Description
-        app.t.forEach(element => {
+        app.taskList.forEach(element => {
           if (element.isActive)
-            TaskLine(app.t.indexOf(element).toString(), element, app)
+            TaskLine(app.taskList.indexOf(element).toString(), element, app)
         })
-        app.t.forEach(element => {
+        app.taskList.forEach(element => {
           if (!element.isActive)
-            TaskLine(app.t.indexOf(element).toString(), element, app)
+            TaskLine(app.taskList.indexOf(element).toString(), element, app)
         })
       })
       Div('Task-input', e => {

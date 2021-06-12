@@ -22,6 +22,7 @@ export const style = restyler(() => {
     padding: 9px 15px;
     border-radius: 0 3px 3px 0;
     background-color: rgba(115, 115, 115, 0.5);
+    backdrop-filter: blur(5px);
     transition: background-color .2s ease;
     :hover, :focus {
       transition: background-color .2s ease;
@@ -59,11 +60,12 @@ export const style = restyler(() => {
       width: 100%;
       user-select: none;
       border-radius: 3px 0 0 3px;
-      background-color: rgba(96, 96, 96, .35);
+      backdrop-filter: blur(5px);
+      background-color: rgba(96, 96, 96, 0.35);
       transition: background-color .2s ease;
       :hover {
         transition: background-color .2s ease;
-        background-color: rgba(108, 108, 108, .35);
+        background-color: rgba(108, 108, 108, 0.35);
       }
     `,
   }

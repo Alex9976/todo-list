@@ -8,7 +8,7 @@ export function HomePageView(app: App) {
   return (
     PageView(app.homePage, e => {
       Div('List', e => {
-        e.className = style.class.Description
+        e.className = style.class.List
         app.taskList.forEach(element => {
           if (element.isActive)
             TaskLine(app.taskList.indexOf(element).toString(), element, app)

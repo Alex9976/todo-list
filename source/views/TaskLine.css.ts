@@ -45,6 +45,7 @@ export const style = restyler(() => {
       border-radius: 3px 0 0 3px;
       background-color: rgba(96, 96, 96, 1);
       transition: background-color .2s ease;
+      user-select: none;
       :hover {
         transition: background-color .2s ease;
         background-color: rgba(104, 104, 104, 1);
@@ -56,6 +57,7 @@ export const style = restyler(() => {
       margin: 0;
       padding: 9px 10px;
       width: 100%;
+      user-select: none;
       border-radius: 3px 0 0 3px;
       background-color: rgba(96, 96, 96, .35);
       transition: background-color .2s ease;

@@ -5,15 +5,21 @@ import { App } from '../models/App'
 import { Task } from '../models/Task'
 import { TaskLine } from './TaskLine.view'
 
+
+
 export function HomePageView(app: App) {
   return (
     PageView(app.homePage, e => {
       Div('List', e => {
         e.className = style.class.Description
-        app.taskList.list.forEach(element => {
-          TaskLine(app.taskList.list.indexOf(element).toString(), element)
+        app.t.forEach(element => {
+          if (element.isActive)
+            TaskLine(app.t.indexOf(element).toString(), element, app)
         })
-        TaskLine('-1', app.taskList.task)
+        app.t.forEach(element => {
+          if (!element.isActive)
+            TaskLine(app.t.indexOf(element).toString(), element, app)
+        })
       })
       Div('Task-input', e => {
         let submitInput: HTMLInputElement
@@ -27,14 +33,14 @@ export function HomePageView(app: App) {
         Div('Submit', e => {
           e.onclick = () => {
             if (submitInput.value != '') {
-              app.taskList.addTask(submitInput.value)
+              app.addTask(submitInput.value)
               submitInput.value = ''
             }
           }
           submitInput.onkeydown = e => {
             if (e.key == 'Enter') {
               if (submitInput.value != '') {
-                app.taskList.addTask(submitInput.value)
+                app.addTask(submitInput.value)
                 submitInput.value = ''
               }
             }

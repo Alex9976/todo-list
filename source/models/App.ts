@@ -1,12 +1,11 @@
-import { ObservableObject, reaction, Ref, unobservable } from 'reactronic'
+import { ObservableObject, reaction, Ref, transaction, unobservable } from 'reactronic'
 import { Page } from './Page'
-import { TaskList } from './TaskList'
+import { Task } from './Task'
 
 export class App extends ObservableObject {
   @unobservable readonly version: string
   @unobservable readonly homePage: Page
-  @unobservable taskList: TaskList = new TaskList()
-
+  @unobservable t = [new Task('22')]
   activePage: Page
 
   constructor(version: string) {
@@ -16,4 +15,20 @@ export class App extends ObservableObject {
     this.activePage = this.homePage
     this.activePage.isActive = true
   }
+
+  @transaction
+  addTask(text: string): void {
+    this.t.push(new Task(text))
+  }
+
+  @transaction
+  deleteTask(task: Task): void {
+    this.t.splice(this.t.indexOf(task), 1)
+  }
+
+  @reaction
+  updateTasks(): void {
+    localStorage.setItem('tasks', JSON.stringify(this.t))
+  }
+
 }

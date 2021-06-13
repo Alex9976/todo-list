@@ -23,7 +23,7 @@ export class App extends ObservableObject {
       })
     }
   }
-
+  
   @transaction
   addTask(text: string): void {
     const newTaskList = this.taskList.toMutable()

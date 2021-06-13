@@ -48,6 +48,10 @@ export const style = restyler(() => {
 
     List: css`
       font-size: 110%;
+      overflow: auto;
+      height: 87vh;
+      padding: 20px;
+      overflow-y: scroll;
     `,
   }
 })

@@ -11,6 +11,7 @@ export const style = restyler(() => {
       background-size: cover;
       color: ${themes.active.foreground};
       min-height: 100vh;
+      
 
       a {
         text-decoration: none;
@@ -21,7 +22,6 @@ export const style = restyler(() => {
 
     Body: css`
       width: 100%;
-      padding: 20px
     `,
   }
 })

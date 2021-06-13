@@ -23,7 +23,7 @@ export function HomePageView(app: App) {
         e.className = style.class.InputTask
         Input('Task', e => {
           submitInput = e
-          e.placeholder = 'Input your task'
+          e.placeholder = 'Enter the task'
           e.className = style.class.Input
           e.type = 'text'
         })

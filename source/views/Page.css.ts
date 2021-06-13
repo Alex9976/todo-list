@@ -45,6 +45,17 @@ export const style = restyler(() => {
       }
     `,
 
+    CompletedLabel: css`
+      padding: 7px;
+      margin: 5px;
+      user-select: none;
+      font-size: 90%;
+      /*background-color: rgba(0, 0, 0, 0.4);
+      border-radius: 5px;
+      backdrop-filter: blur(5px);
+      width: 10%;*/
+    `,
+
     List: css`
       font-size: 110%;
       overflow: auto;

@@ -9,7 +9,7 @@ export const style = restyler(() => {
       user-select: none;
       padding: 9px 15px;
       border-radius: 0 3px 3px 0;
-      background-color: rgba(46, 46, 46, 1);
+      background-color: rgba(39, 39, 39, 1);
       transition: background-color .2s ease;
       :hover, :focus {
         transition: background-color .2s ease;
@@ -21,7 +21,7 @@ export const style = restyler(() => {
     user-select: none;
     padding: 9px 15px;
     border-radius: 0 3px 3px 0;
-    background-color: rgba(46, 46, 46, 0.5);
+    background-color: rgba(39, 39, 39, 0.5);
     backdrop-filter: blur(5px);
     transition: background-color .2s ease;
     :hover, :focus {

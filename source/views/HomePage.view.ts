@@ -13,6 +13,12 @@ export function HomePageView(app: App) {
           if (element.isActive)
             TaskLine(app.taskList.indexOf(element).toString(), element, app)
         })
+        if (app.completedTasks > 0) {
+          Div('Completed-tasks', e => {
+            e.className = style.class.CompletedLabel
+            e.innerHTML = 'Completed ' + app.completedTasks.toString()
+          })
+        }
         app.taskList.forEach(element => {
           if (!element.isActive)
             TaskLine(app.taskList.indexOf(element).toString(), element, app)

@@ -5,11 +5,13 @@ import { Task } from './Task'
 export class App extends ObservableObject {
   @unobservable readonly version: string
   @unobservable readonly homePage: Page
+  @unobservable completedTasks: number
   taskList: Task[] = []
   activePage: Page
 
   constructor(version: string) {
     super()
+    this.completedTasks = 0
     this.version = version
     this.homePage = new Page('/home', '<img src="assets/home.svg"/>', 'Todo')
     this.activePage = this.homePage
@@ -40,6 +42,7 @@ export class App extends ObservableObject {
 
   @reaction
   updateTasks(): void {
+    this.completedTasks = this.taskList.filter(x => !x.isActive).length
     localStorage.setItem('tasks', JSON.stringify(this.taskList))
   }
 

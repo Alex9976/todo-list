@@ -9,7 +9,7 @@ export const style = restyler(() => {
       user-select: none;
       padding: 9px 15px;
       border-radius: 0 3px 3px 0;
-      background-color: rgba(115, 115, 115, 1);
+      background-color: rgba(46, 46, 46, 1);
       transition: background-color .2s ease;
       :hover, :focus {
         transition: background-color .2s ease;
@@ -21,7 +21,7 @@ export const style = restyler(() => {
     user-select: none;
     padding: 9px 15px;
     border-radius: 0 3px 3px 0;
-    background-color: rgba(115, 115, 115, 0.5);
+    background-color: rgba(46, 46, 46, 0.5);
     backdrop-filter: blur(5px);
     transition: background-color .2s ease;
     :hover, :focus {
@@ -52,12 +52,13 @@ export const style = restyler(() => {
       padding: 9px 10px;
       width: 100%;
       border-radius: 3px 0 0 3px;
-      background-color: rgba(96, 96, 96, 1);
+      background-color: rgba(36, 36, 36, 1);
+      backdrop-filter: blur(5px);
       transition: background-color .2s ease;
       user-select: none;
       :hover {
         transition: background-color .2s ease;
-        background-color: rgba(104, 104, 104, 1);
+        background-color: rgba(53, 56, 58, 1);
       }
     `,
 
@@ -69,11 +70,11 @@ export const style = restyler(() => {
       user-select: none;
       border-radius: 3px 0 0 3px;
       backdrop-filter: blur(5px);
-      background-color: rgba(96, 96, 96, 0.35);
+      background-color: rgba(36, 36, 36, 0.35);
       transition: background-color .2s ease;
       :hover {
         transition: background-color .2s ease;
-        background-color: rgba(108, 108, 108, 0.35);
+        background-color: rgba(53, 56, 58, 0.35);
       }
     `,
   }

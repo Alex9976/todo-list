@@ -37,6 +37,14 @@ export const style = restyler(() => {
       width: 100%;
       height: 45px;
       align-items: center;
+
+      @media screen and (max-width: 1000px) {
+        height: 40px;
+      }
+
+      @media screen and (max-width: 600px) {
+        height: 38px;
+      }
     `,
 
     TaskElement: css`

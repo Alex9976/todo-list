@@ -1,6 +1,5 @@
 import { css } from '@emotion/css'
 import { restyler } from 'reactronic-front'
-import { themes } from './Themes'
 
 export const style = restyler(() => {
   return {
@@ -18,7 +17,7 @@ export const style = restyler(() => {
 
     Input: css`
       margin: 0;
-      width: 94%;
+      width: calc(100vw - 100px);
       height: 45px;
       padding: 0 10px;
       border-radius: 4px 0 0 4px;
@@ -49,7 +48,7 @@ export const style = restyler(() => {
     List: css`
       font-size: 110%;
       overflow: auto;
-      height: 87vh;
+      height: calc(100vh - 91px);
       padding: 20px;
       overflow-y: scroll;
     `,

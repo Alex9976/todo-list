@@ -10,6 +10,7 @@ module.exports = {
     'quotes': ['error', 'single'],
     'semi': ['error', 'never'],
     'prefer-const': 'error',
+    'eol-last': 'error',
     // 'comma-dangle': ['error', 'always-multiline'],
     'no-trailing-spaces': 'error',
     'no-unexpected-multiline': 'error',
@@ -30,19 +31,13 @@ module.exports = {
     '@typescript-eslint/ban-types': 'off',
     '@typescript-eslint/strict-boolean-expressions': ['error', { allowNullableObject: true, allowNullableString: true, allowNullableBoolean: true, allowAny: true }],
     'no-useless-rename': 'error',
+    'padding-line-between-statements': ['error',
+      { blankLine: 'always', prev: '*', next: 'function' },
+      { blankLine: 'always', prev: '*', next: 'class' },
+      { blankLine: 'always', prev: '*', next: 'export' },
+    ]
   },
   'overrides': [
-    {
-      'files': ['library/nezaboodka/**/*.ts'],
-      'rules': {
-        'quotes': 'off',
-        'semi': 'off',
-        'indent': ['error', 2, { 'SwitchCase': 1 }],
-        '@typescript-eslint/no-extra-non-null-assertion': 'off',
-        '@typescript-eslint/no-empty-function': 'off',
-        '@typescript-eslint/strict-boolean-expressions': 'off',
-      }
-    },
     {
       'files': ['**/*.view.ts'],
       'rules': {

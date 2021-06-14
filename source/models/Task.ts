@@ -1,4 +1,5 @@
 import { ObservableObject, reaction, transaction, unobservable } from 'reactronic'
+
 export class Task extends ObservableObject {
   text: string
   isActive: boolean
@@ -13,5 +14,4 @@ export class Task extends ObservableObject {
   changeActivity(): void {
     this.isActive = !this.isActive
   }
-
 }

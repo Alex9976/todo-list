@@ -16,7 +16,6 @@ export function TaskLine(id: string, task: Task, app: App) {
       })
       Div('Delete', e => {
         e.onclick = async () => {
-          console.log(id)
           app.deleteTask(task)
         }
         e.className = task.isActive ? style.class.Delete : style.class.InactiveDelete

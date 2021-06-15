@@ -9,16 +9,43 @@ export const style = restyler(() => {
 
       min-height: 45px;
       padding: 9px 15px;
+
       display: flex;
       align-items: center;
       justify-content: center;
       flex-direction: column;
+      img {
+        width: 20px;
+        filter: invert(100%);
+      }
       border-radius: 0 3px 3px 0;
       background-color: rgba(39, 39, 39, 1);
       transition: background-color .2s ease;
       :hover, :focus {
         transition: background-color .2s ease;
         background-color: rgba(200, 0, 0, 1);
+      }
+    `,
+
+    Edit: css`
+      margin: 0;
+
+      min-height: 45px;
+      padding: 9px 15px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      img {
+        width: 20px;
+        filter: invert(100%);
+      }
+      background-color: rgba(39, 39, 39, 1);
+      transition: background-color .2s ease;
+      :hover, :focus {
+        transition: background-color .2s ease;
+        background-color: rgba(105, 153, 0, 1);
       }
     `,
 
@@ -29,6 +56,10 @@ export const style = restyler(() => {
     justify-content: center;
     flex-direction: column;
     padding: 9px 15px;
+    img {
+        width: 20px;
+        filter: invert(100%);
+      }
     min-height: 45px;
     border-radius: 0 3px 3px 0;
     background-color: rgba(39, 39, 39, 0.5);
@@ -37,6 +68,27 @@ export const style = restyler(() => {
     :hover, :focus {
       transition: background-color .2s ease;
       background-color: rgba(200, 0, 0, 0.5);
+    }
+    `,
+
+    InactiveEdit: css`
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 9px 15px;
+    img {
+        width: 20px;
+        filter: invert(100%);
+      }
+    min-height: 45px;
+    background-color: rgba(39, 39, 39, 0.5);
+    backdrop-filter: blur(5px);
+    transition: background-color .2s ease;
+    :hover, :focus {
+      transition: background-color .2s ease;
+      background-color: rgba(105, 153, 0, 0.5);
     }
     `,
 

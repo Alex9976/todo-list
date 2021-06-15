@@ -36,14 +36,14 @@ export function HomePageView(app: App) {
         })
         Div('Submit', e => {
           e.onclick = () => {
-            if (submitInput.value != '' && submitInput.value.trim() != ''){
+            if (submitInput.value.trim() != '') {
               app.addTask(submitInput.value)
               submitInput.value = ''
             }
           }
           submitInput.onkeydown = e => {
             if (e.key == 'Enter') {
-              if (submitInput.value != '') {
+              if (submitInput.value.trim() != '') {
                 app.addTask(submitInput.value)
                 submitInput.value = ''
               }

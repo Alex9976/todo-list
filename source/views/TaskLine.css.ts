@@ -149,21 +149,20 @@ export const style = restyler(() => {
     Input: css`
       margin: 0;
       width: calc(100vw - 145px);
-      height: 50px;
+      height: 45px;
       color: #fff;
       font-size: 24px;
       font-family: Calibri, Tahoma, Arial, sans-serif;
       border: none;
       resize: none;
       padding: 6px 10px 0 10px;
-      /*padding: 0 10px;*/
-      border-radius: 4px 0 0 4px;
-      background-color: rgba(0, 0, 0, 0.55);
+      border-radius: 3px 0 0 3px;
+      background-color: rgba(36, 36, 36, 0.55);
       backdrop-filter: blur(5px);
       transition: background-color .2s ease;
       :hover, :focus {
         transition: background-color .2s ease;
-        background-color: rgba(0, 0, 0, 0.25);
+        background-color: rgba(53, 56, 58, 0.25);
       }
     `,
   }

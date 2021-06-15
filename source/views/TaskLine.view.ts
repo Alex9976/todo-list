@@ -18,28 +18,36 @@ export function TaskLine(id: string, task: Task, app: App) {
         })
       }
       else {
-        Div('Task-input', e => {
-          TextArea('Task', e => {
-            submitInput = e
-            e.value = task.text
-            e.className = style.class.Input
-            e.cols = 40
-            e.rows = 20
+        TextArea('Task', e => {
+          submitInput = e
+          submitInput.onkeydown = e => {
+            if (e.key == 'Enter') {
+              if (submitInput.value.trim() != '') {
+                app.editTask(task, submitInput.value)
+                submitInput.value = ''
+              }
+            }
+          }
+          e.value = task.text
+          e.className = style.class.Input
+          e.cols = 40
+          e.rows = 20
+        })
+      }
+      if (task.notCompleted) {
+        Div('Edit', e => {
+          e.onclick = () => {
+            if (task.isEdit)
+              app.editTask(task, submitInput.value)
+            else
+              app.editTask(task)
+          }
+          e.className = task.notCompleted ? style.class.Edit : style.class.InactiveEdit
+          Img('Edit-icon', e => {
+            e.src = task.isEdit ? '../assets/check.svg' : '../assets/pencil.svg'
           })
         })
       }
-      Div('Edit', e => {
-        e.onclick = () => {
-          if (task.isEdit)
-            app.editTask(task, submitInput.value)
-          else
-            app.editTask(task)
-        }
-        e.className = task.notCompleted ? style.class.Edit : style.class.InactiveEdit
-        Img('Edit-icon', e => {
-          e.src = task.isEdit ? '../assets/check.svg' : '../assets/pencil.svg'
-        })
-      })
       Div('Delete', e => {
         e.onclick = () => {
           app.deleteTask(task)

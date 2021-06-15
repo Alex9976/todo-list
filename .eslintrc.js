@@ -16,6 +16,8 @@ module.exports = {
     'no-unexpected-multiline': 'error',
     'object-shorthand': ['error', 'always'],
     // 'import-order': 'off',
+    "require-await": "off",
+    "@typescript-eslint/require-await": "error",
     '@typescript-eslint/no-floating-promises': 'error',
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/no-unused-vars': 'off',

@@ -35,7 +35,7 @@ export function HomePageView(app: App) {
         })
         Div('Submit', e => {
           e.onclick = () => {
-            if (submitInput.value != '') {
+            if (submitInput.value != '' && submitInput.value.trim() != ''){
               app.addTask(submitInput.value)
               submitInput.value = ''
             }

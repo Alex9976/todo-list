@@ -8,17 +8,17 @@ export function TaskLine(id: string, task: Task, app: App) {
     UL('Task' + id, e => {
       e.className = style.class.Task
       Div('Task-element', e => {
-        e.onclick = async () => {
+        e.onclick = () => {
           task.changeActivity()
         }
-        e.className = task.isActive ? style.class.TaskElement : style.class.InactiveTaskElement
+        e.className = task.notCompleted ? style.class.TaskElement : style.class.InactiveTaskElement
         e.innerHTML = task.text
       })
       Div('Delete', e => {
-        e.onclick = async () => {
+        e.onclick = () => {
           app.deleteTask(task)
         }
-        e.className = task.isActive ? style.class.Delete : style.class.InactiveDelete
+        e.className = task.notCompleted ? style.class.Delete : style.class.InactiveDelete
         e.innerHTML = 'Delete'
       })
     })

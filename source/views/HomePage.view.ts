@@ -9,9 +9,9 @@ export function HomePageView(app: App) {
     PageView(app.homePage, e => {
       Div('List', e => {
         e.className = style.class.List
-        app.taskList.forEach(element => {
-          if (element.isActive)
-            TaskLine(app.taskList.indexOf(element).toString(), element, app)
+        app.taskList.forEach((element, index) => {
+          if (element.notCompleted)
+            TaskLine(index.toString(), element, app)
         })
         if (app.completedTasks > 0) {
           Div('Completed-tasks', e => {
@@ -19,9 +19,9 @@ export function HomePageView(app: App) {
             e.innerHTML = 'Completed ' + app.completedTasks.toString()
           })
         }
-        app.taskList.forEach(element => {
-          if (!element.isActive)
-            TaskLine(app.taskList.indexOf(element).toString(), element, app)
+        app.taskList.forEach((element, index) => {
+          if (!element.notCompleted)
+            TaskLine(index.toString(), element, app)
         })
       })
       Div('Task-input', e => {

@@ -2,16 +2,16 @@ import { ObservableObject, reaction, transaction, unobservable } from 'reactroni
 
 export class Task extends ObservableObject {
   text: string
-  isActive: boolean
+  notCompleted: boolean
 
   constructor(text: string) {
     super()
     this.text = text
-    this.isActive = true
+    this.notCompleted = true
   }
 
   @transaction
   changeActivity(): void {
-    this.isActive = !this.isActive
+    this.notCompleted = !this.notCompleted
   }
 }

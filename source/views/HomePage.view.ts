@@ -1,4 +1,4 @@
-import { Div, Input } from 'reactronic-front'
+import { Div, Input, RxDiv } from 'reactronic-front'
 import { PageView } from './Page.view'
 import { style } from './Page.css'
 import { App } from '../models/App'
@@ -7,7 +7,7 @@ import { TaskLine } from './TaskLine.view'
 export function HomePageView(app: App) {
   return (
     PageView(app.homePage, e => {
-      Div('List', e => {
+      RxDiv('List', null, e => {
         e.className = style.class.List
         app.taskList.forEach((element, index) => {
           if (element.notCompleted)

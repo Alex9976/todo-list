@@ -20,7 +20,7 @@ export class App extends ObservableObject {
     if (saveTasks != null) {
       saveTasks.forEach(element => {
         const task = new Task(element.text)
-        task.isActive = element.isActive
+        task.notCompleted = element.notCompleted
         this.taskList.push(task)
       })
     }
@@ -40,7 +40,7 @@ export class App extends ObservableObject {
 
   @reaction
   updateTasks(): void {
-    this.completedTasks = this.taskList.filter(x => !x.isActive).length
+    this.completedTasks = this.taskList.filter(x => !x.notCompleted).length
     localStorage.setItem('tasks', JSON.stringify(this.taskList))
   }
 

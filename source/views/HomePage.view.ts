@@ -10,7 +10,7 @@ export function HomePageView(app: App) {
       RxDiv('List', null, e => {
         e.className = style.class.List
         app.taskList.forEach((element, index) => {
-          if (element.isActive)
+          if (element.notCompleted)
             TaskLine(index.toString(), element, app)
         })
         if (app.completedTasks > 0) {
@@ -20,7 +20,7 @@ export function HomePageView(app: App) {
           })
         }
         app.taskList.forEach((element, index) => {
-          if (!element.isActive)
+          if (!element.notCompleted)
             TaskLine(index.toString(), element, app)
         })
       })
@@ -36,7 +36,7 @@ export function HomePageView(app: App) {
         })
         Div('Submit', e => {
           e.onclick = () => {
-            if (submitInput.value != '') {
+            if (submitInput.value != '' && submitInput.value.trim() != ''){
               app.addTask(submitInput.value)
               submitInput.value = ''
             }

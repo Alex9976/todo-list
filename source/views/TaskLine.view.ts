@@ -11,14 +11,14 @@ export function TaskLine(id: string, task: Task, app: App) {
         e.onclick = () => {
           task.changeActivity()
         }
-        e.className = task.isActive ? style.class.TaskElement : style.class.InactiveTaskElement
+        e.className = task.notCompleted ? style.class.TaskElement : style.class.InactiveTaskElement
         e.innerHTML = task.text
       })
       Div('Delete', e => {
         e.onclick = () => {
           app.deleteTask(task)
         }
-        e.className = task.isActive ? style.class.Delete : style.class.InactiveDelete
+        e.className = task.notCompleted ? style.class.Delete : style.class.InactiveDelete
         e.innerHTML = 'Delete'
       })
     })

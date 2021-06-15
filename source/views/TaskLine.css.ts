@@ -6,9 +6,13 @@ export const style = restyler(() => {
   return {
     Delete: css`
       margin: 0;
-      user-select: none;
-      height: 100%;
+
+      min-height: 45px;
       padding: 9px 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
       border-radius: 0 3px 3px 0;
       background-color: rgba(39, 39, 39, 1);
       transition: background-color .2s ease;
@@ -17,11 +21,15 @@ export const style = restyler(() => {
         background-color: rgba(200, 0, 0, 1);
       }
     `,
+
     InactiveDelete: css`
     margin: 0;
-    user-select: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
     padding: 9px 15px;
-    height: 100%;
+    min-height: 45px;
     border-radius: 0 3px 3px 0;
     background-color: rgba(39, 39, 39, 0.5);
     backdrop-filter: blur(5px);
@@ -30,30 +38,33 @@ export const style = restyler(() => {
       transition: background-color .2s ease;
       background-color: rgba(200, 0, 0, 0.5);
     }
-  `,
+    `,
 
     Task: css`
       display: flex;
       cursor: pointer;
+      user-select: none;
       margin: 6px 0;
-      width: 100%;
-      height: 45px;
-      align-items: center;
 
+      max-width: 100%;
+      min-height: 45px;
+      align-items: stretch;
       @media screen and (max-width: 1000px) {
-        height: 40px;
+        min-height: 40px;
       }
 
       @media screen and (max-width: 600px) {
-        height: 38px;
+        min-height: 38px;
       }
     `,
 
     TaskElement: css`
       margin: 0;
       padding: 9px 10px;
-      width: 100%;
-      height: 100%;
+      width: 90%;
+      word-wrap: break-word;
+      flex: 1 0 auto;
+      min-height: 45px;
       border-radius: 3px 0 0 3px;
       background-color: rgba(36, 36, 36, 1);
       backdrop-filter: blur(5px);
@@ -66,12 +77,13 @@ export const style = restyler(() => {
     `,
 
     InactiveTaskElement: css`
-      text-decoration:line-through;
+      text-decoration: line-through;
       margin: 0;
-      height: 100%;
+      flex: 1 0 auto;
+      min-height: 45px;
       padding: 9px 10px;
-      width: 100%;
-      user-select: none;
+      word-wrap: break-word;
+      width: 90%;
       border-radius: 3px 0 0 3px;
       backdrop-filter: blur(5px);
       background-color: rgba(36, 36, 36, 0.35);

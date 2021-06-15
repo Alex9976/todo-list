@@ -1,4 +1,4 @@
-import { Div, Input, RxDiv } from 'reactronic-front'
+import { Div, Input, RxDiv, TextArea } from 'reactronic-front'
 import { PageView } from './Page.view'
 import { style } from './Page.css'
 import { App } from '../models/App'
@@ -25,13 +25,14 @@ export function HomePageView(app: App) {
         })
       })
       Div('Task-input', e => {
-        let submitInput: HTMLInputElement
+        let submitInput: HTMLTextAreaElement
         e.className = style.class.InputTask
-        Input('Task', e => {
+        TextArea('Task', e => {
           submitInput = e
           e.placeholder = 'Enter the task'
           e.className = style.class.Input
-          e.type = 'text'
+          e.cols = 40
+          e.rows = 20
         })
         Div('Submit', e => {
           e.onclick = () => {

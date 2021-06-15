@@ -3,8 +3,8 @@ import { restyler } from 'reactronic-front'
 
 export const style = restyler(() => {
   return {
-    InputTask: css`    
-      display: flex;   
+    InputTask: css`
+      display: flex;
       justify-content: center;
       align-items: center;
       margin: 0;
@@ -19,7 +19,13 @@ export const style = restyler(() => {
       margin: 0;
       width: calc(100vw - 100px);
       height: 45px;
-      padding: 0 10px;
+      color: #fff;
+      font-size: 24px;
+      font-family: Calibri, Tahoma, Arial, sans-serif;
+      border: none;
+      resize: none;
+      padding: 6px 10px 0 10px;
+      /*padding: 0 10px;*/
       border-radius: 4px 0 0 4px;
       background-color: rgba(0, 0, 0, 0.55);
       backdrop-filter: blur(5px);

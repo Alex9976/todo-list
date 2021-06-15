@@ -1,4 +1,4 @@
-import { Div, Img, SvgImage, UL } from 'reactronic-front'
+import { Div, Img, TextArea, UL } from 'reactronic-front'
 import { style } from './TaskLine.css'
 import { Task } from '../models/Task'
 import { App } from '../models/App'
@@ -6,21 +6,38 @@ import { App } from '../models/App'
 export function TaskLine(id: string, task: Task, app: App) {
   return (
     UL('Task' + id, e => {
+      let submitInput: HTMLTextAreaElement
       e.className = style.class.Task
-      Div('Task-element', e => {
-        e.onclick = () => {
-          task.changeActivity()
-        }
-        e.className = task.notCompleted ? style.class.TaskElement : style.class.InactiveTaskElement
-        e.innerHTML = task.text
-      })
+      if (!task.isEdit) {
+        Div('Task-element', e => {
+          e.onclick = () => {
+            task.changeActivity()
+          }
+          e.className = task.notCompleted ? style.class.TaskElement : style.class.InactiveTaskElement
+          e.innerHTML = task.text
+        })
+      }
+      else {
+        Div('Task-input', e => {
+          TextArea('Task', e => {
+            submitInput = e
+            e.value = task.text
+            e.className = style.class.Input
+            e.cols = 40
+            e.rows = 20
+          })
+        })
+      }
       Div('Edit', e => {
         e.onclick = () => {
-          app.deleteTask(task)
+          if (task.isEdit)
+            app.editTask(task, submitInput.value)
+          else
+            app.editTask(task)
         }
         e.className = task.notCompleted ? style.class.Edit : style.class.InactiveEdit
-        Img('Delete-icon', e => {
-          e.src = '../assets/pencil.svg'
+        Img('Edit-icon', e => {
+          e.src = task.isEdit ? '../assets/check.svg' : '../assets/pencil.svg'
         })
       })
       Div('Delete', e => {

@@ -38,6 +38,19 @@ export class App extends ObservableObject {
     this.taskList.splice(this.taskList.indexOf(task), 1)
   }
 
+  @transaction
+  editTask(task: Task, newText?: string): void {
+    if (task.isEdit) {
+      if (newText != null) {
+        task.text = newText
+      }
+      task.isEdit = false
+    }
+    else {
+      task.isEdit = true
+    }
+  }
+
   @reaction
   updateTasks(): void {
     this.completedTasks = this.taskList.filter(x => !x.notCompleted).length

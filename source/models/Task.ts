@@ -3,11 +3,13 @@ import { ObservableObject, reaction, transaction, unobservable } from 'reactroni
 export class Task extends ObservableObject {
   text: string
   notCompleted: boolean
+  isEdit: boolean
 
   constructor(text: string) {
     super()
     this.text = text
     this.notCompleted = true
+    this.isEdit = false
   }
 
   @transaction

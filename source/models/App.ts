@@ -28,16 +28,14 @@ export class App extends ObservableObject {
 
   @transaction
   addTask(text: string): void {
-    const newTaskList = this.taskList.toMutable()
-    newTaskList.push(new Task(text))
-    this.taskList = newTaskList
+    this.taskList = this.taskList.toMutable()
+    this.taskList.push(new Task(text))
   }
 
   @transaction
   deleteTask(task: Task): void {
-    const newTaskList = this.taskList.toMutable()
-    newTaskList.splice(this.taskList.indexOf(task), 1)
-    this.taskList = newTaskList
+    this.taskList = this.taskList.toMutable()
+    this.taskList.splice(this.taskList.indexOf(task), 1)
   }
 
   @reaction

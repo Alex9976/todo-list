@@ -7,6 +7,7 @@ export const style = restyler(() => {
     Delete: css`
       margin: 0;
       user-select: none;
+      height: 100%;
       padding: 9px 15px;
       border-radius: 0 3px 3px 0;
       background-color: rgba(39, 39, 39, 1);
@@ -20,6 +21,7 @@ export const style = restyler(() => {
     margin: 0;
     user-select: none;
     padding: 9px 15px;
+    height: 100%;
     border-radius: 0 3px 3px 0;
     background-color: rgba(39, 39, 39, 0.5);
     backdrop-filter: blur(5px);
@@ -33,7 +35,7 @@ export const style = restyler(() => {
     Task: css`
       display: flex;
       cursor: pointer;
-      margin: 4px 0;
+      margin: 6px 0;
       width: 100%;
       height: 45px;
       align-items: center;
@@ -51,6 +53,7 @@ export const style = restyler(() => {
       margin: 0;
       padding: 9px 10px;
       width: 100%;
+      height: 100%;
       border-radius: 3px 0 0 3px;
       background-color: rgba(36, 36, 36, 1);
       backdrop-filter: blur(5px);
@@ -65,6 +68,7 @@ export const style = restyler(() => {
     InactiveTaskElement: css`
       text-decoration:line-through;
       margin: 0;
+      height: 100%;
       padding: 9px 10px;
       width: 100%;
       user-select: none;

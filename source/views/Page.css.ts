@@ -39,7 +39,7 @@ export const style = restyler(() => {
     Submit: css`
       height: 45px;
       user-select: none;
-      padding: 7px 15px;
+      padding: 5px 15px;
       cursor: pointer;
       border-radius: 0 4px 4px 0;
       background-color: rgba(0, 0, 0, 0.55);
@@ -48,6 +48,11 @@ export const style = restyler(() => {
       :hover {
         transition: background-color .2s ease;
         background-color: rgba(0, 0, 0, 0.25);
+      }
+
+      img {
+        width: 20px;
+        filter: invert(100%);
       }
     `,
 

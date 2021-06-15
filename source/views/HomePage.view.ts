@@ -1,4 +1,4 @@
-import { Div, Input, RxDiv, TextArea } from 'reactronic-front'
+import { Div, Img, Input, RxDiv, TextArea } from 'reactronic-front'
 import { PageView } from './Page.view'
 import { style } from './Page.css'
 import { App } from '../models/App'
@@ -50,7 +50,9 @@ export function HomePageView(app: App) {
             }
           }
           e.className = style.class.Submit
-          e.innerHTML = 'Add'
+          Img('Add-icon', e => {
+            e.src = '../assets/add.svg'
+          })
         })
       })
     })

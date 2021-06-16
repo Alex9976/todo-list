@@ -113,7 +113,7 @@ export const style = restyler(() => {
     TaskElement: css`
       margin: 0;
       padding: 9px 10px;
-      width: 90%;
+      width: 80%;
       word-wrap: break-word;
       flex: 1 0 auto;
       min-height: 45px;
@@ -163,6 +163,28 @@ export const style = restyler(() => {
       :hover, :focus {
         transition: background-color .2s ease;
         background-color: rgba(53, 56, 58, 0.25);
+      }
+    `,
+
+    Arrow: css`
+      margin: 0;
+
+      min-height: 45px;
+      padding: 9px 15px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      img {
+        width: 20px;
+        filter: invert(100%);
+      }
+      background-color: rgba(39, 39, 39, 1);
+      transition: background-color .2s ease;
+      :hover, :focus {
+        transition: background-color .2s ease;
+        background-color: rgba(59, 59, 59, 1);
       }
     `,
   }

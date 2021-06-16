@@ -9,9 +9,14 @@ export function HomePageView(app: App) {
     PageView(app.homePage, e => {
       RxUL('List', null, e => {
         e.className = style.class.List
+
+        //TODO: Find an alternative
+        let ind: number = 0
+
         app.taskList.forEach((element, index) => {
           if (element.notCompleted)
-            TaskLine(index.toString(), element, app)
+            TaskLine(ind.toString(), element, app)
+          ind++
         })
         if (app.completedTasks > 0) {
           Div('Completed-tasks', e => {
@@ -21,7 +26,8 @@ export function HomePageView(app: App) {
         }
         app.taskList.forEach((element, index) => {
           if (!element.notCompleted)
-            TaskLine(index.toString(), element, app)
+            TaskLine(ind.toString(), element, app)
+          ind++
         })
       })
       Div('Task-input', e => {

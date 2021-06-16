@@ -39,6 +39,29 @@ export class App extends ObservableObject {
   }
 
   @transaction
+  updatePriority(task: Task, isPriorityIncrease: boolean): void {
+    this.taskList = this.taskList.toMutable()
+    if (isPriorityIncrease) {
+      do {
+        if (this.taskList.indexOf(task) == 0)
+          break
+        const taskPosition: number = this.taskList.indexOf(task)
+        this.taskList[taskPosition] = this.taskList[taskPosition - 1]
+        this.taskList[taskPosition - 1] = task
+      } while (!this.taskList[this.taskList.indexOf(task) + 1].notCompleted)
+    }
+    else {
+      do {
+        if (this.taskList.indexOf(task) == this.taskList.length - 1)
+          break
+        const taskPosition: number = this.taskList.indexOf(task)
+        this.taskList[taskPosition] = this.taskList[taskPosition + 1]
+        this.taskList[taskPosition + 1] = task
+      } while (!this.taskList[this.taskList.indexOf(task) - 1].notCompleted)
+    }
+  }
+
+  @transaction
   addTask(text: string): void {
     this.taskList = this.taskList.toMutable()
     this.taskList.push(new Task(this.convertLineBreaks(text, true)))

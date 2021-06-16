@@ -1,4 +1,4 @@
-import { Div, Img, Input, RxDiv, TextArea } from 'reactronic-front'
+import { Div, Img, Input, RxDiv, RxUL, TextArea } from 'reactronic-front'
 import { PageView } from './Page.view'
 import { style } from './Page.css'
 import { App } from '../models/App'
@@ -7,7 +7,7 @@ import { TaskLine } from './TaskLine.view'
 export function HomePageView(app: App) {
   return (
     PageView(app.homePage, e => {
-      RxDiv('List', null, e => {
+      RxUL('List', null, e => {
         e.className = style.class.List
         app.taskList.forEach((element, index) => {
           if (element.notCompleted)
@@ -42,11 +42,12 @@ export function HomePageView(app: App) {
             }
           }
           submitInput.onkeydown = e => {
-            if (e.key == 'Enter') {
+            if (e.key == 'Enter' && !e.shiftKey) {
+              e.preventDefault()
               if (submitInput.value.trim() != '') {
                 app.addTask(submitInput.value)
-                submitInput.value = ''
               }
+              submitInput.value = ''
             }
           }
           e.className = style.class.Submit

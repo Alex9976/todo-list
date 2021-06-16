@@ -1,13 +1,17 @@
-import { Div, Img, TextArea, UL } from 'reactronic-front'
+import { Div, Img, LI, TextArea, UL } from 'reactronic-front'
 import { style } from './TaskLine.css'
 import { Task } from '../models/Task'
 import { App } from '../models/App'
 
 export function TaskLine(id: string, task: Task, app: App) {
   return (
-    UL('Task' + id, e => {
+    LI('Task' + id, e => {
       let submitInput: HTMLTextAreaElement
       e.className = style.class.Task
+      if (task.notCompleted)
+        e.draggable = true
+      else
+        e.draggable = false
       if (!task.isEdit) {
         Div('Task-element', e => {
           e.onclick = () => {
@@ -21,11 +25,12 @@ export function TaskLine(id: string, task: Task, app: App) {
         TextArea('Task', e => {
           submitInput = e
           submitInput.onkeydown = e => {
-            if (e.key == 'Enter') {
+            if (e.key == 'Enter' && !e.shiftKey) {
+              e.preventDefault()
               if (submitInput.value.trim() != '') {
                 app.editTask(task, submitInput.value)
-                submitInput.value = ''
               }
+              submitInput.value = ''
             }
           }
           e.value = task.text

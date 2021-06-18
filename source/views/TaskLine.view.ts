@@ -6,7 +6,7 @@ import { App } from '../models/App'
 export function TaskLine(id: string, task: Task, app: App) {
   return (
     LI('Task' + id, e => {
-      let submitInput: HTMLDivElement
+      let inputArea: HTMLDivElement
       e.className = style.class.Task
       if (task.notCompleted && !task.isEdit)
         e.draggable = true
@@ -23,14 +23,13 @@ export function TaskLine(id: string, task: Task, app: App) {
       }
       else {
         Div('Task', e => {
-          submitInput = e
-          submitInput.contentEditable = 'true'
-          submitInput.eventInfo = {
+          inputArea = e
+          inputArea.contentEditable = 'true'
+          inputArea.eventInfo = {
             keyboard: () => {
-              if (submitInput.innerHTML.trim() != '') {
-                app.editTask(task, submitInput.innerHTML)
+              if (inputArea.innerHTML.trim() != '') {
+                app.editTask(task, inputArea.innerHTML)
               }
-              submitInput.innerHTML = ''
             }
           }
           e.innerHTML = task.text
@@ -63,7 +62,7 @@ export function TaskLine(id: string, task: Task, app: App) {
           e.eventInfo = {
             pointer: () => {
               if (task.isEdit)
-                app.editTask(task, submitInput.innerHTML)
+                app.editTask(task, inputArea.innerHTML)
               else
                 app.editTask(task)
             }

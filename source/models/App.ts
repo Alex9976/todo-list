@@ -113,6 +113,7 @@ export class App extends ObservableObject {
         const action = keyboard.eventInfos[0]
         if (action instanceof Function)
           nonreactive(() => action())
+        this.sensors.preventDefault()
       }
     } catch (e) {
       console.error(e)

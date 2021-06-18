@@ -31,30 +31,29 @@ export function HomePageView(app: App) {
         })
       })
       Div('Task-input', e => {
-        let submitInput: HTMLTextAreaElement
+        let inputArea: HTMLTextAreaElement
         e.className = style.class.InputTask
         TextArea('Task', e => {
-          submitInput = e
+          inputArea = e
           e.placeholder = 'Enter the task'
           e.className = style.class.Input
+          inputArea.eventInfo = {
+            keyboard: () => {
+              if (inputArea.value.trim() != '') {
+                app.addTask(inputArea.value)
+              }
+              inputArea.value = ''
+            }
+          }
         })
         Div('Submit', e => {
           e.eventInfo = {
             pointer: () => {
-              if (submitInput.value.trim() != '') {
-                app.addTask(submitInput.value)
-                submitInput.value = ''
+              if (inputArea.value.trim() != '') {
+                app.addTask(inputArea.value)
+                inputArea.value = ''
               }
             },
-          }
-          submitInput.eventInfo = {
-            keyboard: () => {
-              //e.preventDefault()
-              if (submitInput.value.trim() != '') {
-                app.addTask(submitInput.value)
-              }
-              submitInput.value = ''
-            }
           }
           e.className = style.class.Submit
           Img('Add-icon', e => {

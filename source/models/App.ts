@@ -8,6 +8,8 @@ export class App extends ObservableObject {
   @unobservable readonly homePage: Page
   @unobservable completedTasks: number
   @unobservable sensors: WebSensors
+  @unobservable currentItemID: number = 0
+  @unobservable nextItemId: number = 0
   taskList: Task[] = []
   activePage: Page
 
@@ -35,38 +37,39 @@ export class App extends ObservableObject {
     return inputString
   }
 
-  @transaction
-  updatePriority(task: Task, isPriorityIncrease: boolean): void {
-    this.taskList = this.taskList.toMutable()
-    if (isPriorityIncrease) {
-      do {
-        if (this.taskList.indexOf(task) == 0)
-          break
-        const taskPosition: number = this.taskList.indexOf(task)
-        this.taskList[taskPosition] = this.taskList[taskPosition - 1]
-        this.taskList[taskPosition - 1] = task
-      } while (!this.taskList[this.taskList.indexOf(task) + 1].notCompleted)
-    }
-    else {
-      do {
-        if (this.taskList.indexOf(task) == this.taskList.length - 1)
-          break
-        const taskPosition: number = this.taskList.indexOf(task)
-        this.taskList[taskPosition] = this.taskList[taskPosition + 1]
-        this.taskList[taskPosition + 1] = task
-      } while (!this.taskList[this.taskList.indexOf(task) - 1].notCompleted)
-    }
-  }
+  // @transaction
+  // updatePriority(task: Task, isPriorityIncrease: boolean): void {
+  //   this.taskList = this.taskList.toMutable()
+  //   if (isPriorityIncrease) {
+  //     do {
+  //       if (this.taskList.indexOf(task) == 0)
+  //         break
+  //       const taskPosition: number = this.taskList.indexOf(task)
+  //       this.taskList[taskPosition] = this.taskList[taskPosition - 1]
+  //       this.taskList[taskPosition - 1] = task
+  //     } while (!this.taskList[this.taskList.indexOf(task) + 1].notCompleted)
+  //   }
+  //   else {
+  //     do {
+  //       if (this.taskList.indexOf(task) == this.taskList.length - 1)
+  //         break
+  //       const taskPosition: number = this.taskList.indexOf(task)
+  //       this.taskList[taskPosition] = this.taskList[taskPosition + 1]
+  //       this.taskList[taskPosition + 1] = task
+  //     } while (!this.taskList[this.taskList.indexOf(task) - 1].notCompleted)
+  //   }
+  // }
 
   @transaction
-  swapTasks(currentItemID: number, nextItemId: number): void {
+  swapTasks(): void {
     this.taskList = this.taskList.toMutable()
-    const task: Task = this.taskList[currentItemID]
-    this.taskList.splice(currentItemID, 1)
-    const list = this.taskList.slice(nextItemId)
-    this.taskList.splice(nextItemId)
+    const task: Task = this.taskList[this.currentItemID]
+    this.taskList.splice(this.currentItemID, 1)
+    const list = this.taskList.slice(this.nextItemId)
+    this.taskList.splice(this.nextItemId)
     this.taskList.push(task)
     this.taskList = this.taskList.concat(list)
+
   }
 
   @transaction

@@ -114,7 +114,6 @@ export const style = restyler(() => {
       min-height: 45px;
       padding: 9px 10px;
       word-wrap: break-word;
-      width: 90%;
       border-radius: 3px 0 0 3px;
       backdrop-filter: blur(5px);
       background-color: rgba(36, 36, 36, 0.35);

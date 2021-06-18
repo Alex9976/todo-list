@@ -41,22 +41,35 @@ export function HomePageView(app: App) {
             return null
         }
 
+        const getNextElement = (cursorPosition: any, currentElement: any) => {
+          const currentElementCoord = currentElement.getBoundingClientRect()
+          const currentElementCenter = currentElementCoord.y + currentElementCoord.height / 2
+
+          const nextElement = (cursorPosition < currentElementCenter) ?
+            currentElement :
+            currentElement.nextElementSibling
+
+          return nextElement
+        }
+
         e.addEventListener('dragover', (evt) => {
           evt.preventDefault()
           if (evt.target === null)
             return
           const activeElement = e.querySelector('.selected')
           const activeClassList = activeElement?.classList.toString()
-          if (activeClassList != null) {
+          if (activeClassList && activeElement) {
             const currentItemID = parseInt(activeClassList.substring(activeClassList.indexOf('moveable') + 8, activeClassList.length))
 
             const currentElement = evt.target
             const nextItemId = getNextElementID(currentElement)
+            const nextElement = getNextElement(evt.clientY, currentElement)
 
             if (nextItemId === currentItemID || nextItemId === null) {
               return
             }
-            app.swapTasks(currentItemID, nextItemId)
+            e.insertBefore(activeElement, nextElement.parentNode)
+            app.nextItemId = nextItemId
           }
         })
 

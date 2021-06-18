@@ -12,15 +12,19 @@ export function TaskLine(id: string, task: Task, app: App) {
         e.draggable = true
       else
         e.draggable = false
-      e.addEventListener('dragstart', () => {
+
+      e.ondragstart = () => {
         e.classList.add('selected')
         e.classList.add('moveable' + id)
-      })
+        app.currentItemID = app.taskList.indexOf(task)
+      }
 
-      e.addEventListener('dragend', () => {
+      e.ondragend = () => {
         e.classList.remove('selected')
         e.classList.remove('moveable' + id)
-      })
+        if (app.currentItemID != app.nextItemId)
+          app.swapTasks()
+      }
 
       if (!task.isEdit) {
         Div('Task-element', e => {

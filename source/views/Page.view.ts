@@ -1,6 +1,5 @@
 import { Div, Render } from 'reactronic-front'
 import { Page } from '../models/Page'
-import { style } from './Page.css'
 
 export function PageView(page: Page, contentRenderer?: Render<HTMLElement>, rightSideRenderer?: Render<HTMLElement>) {
   return (

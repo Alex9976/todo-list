@@ -1,4 +1,4 @@
-import { nonreactive, ObservableObject, reaction, Ref, trace, TraceLevel, transaction, unobservable } from 'reactronic'
+import { nonreactive, ObservableObject, reaction, trace, TraceLevel, transaction, unobservable } from 'reactronic'
 import { KeyboardModifiers, PointerButton, WebSensors } from 'reactronic-front'
 import { Page } from './Page'
 import { Task } from './Task'
@@ -36,29 +36,6 @@ export class App extends ObservableObject {
       inputString = inputString.replace('\n', '<br />')
     return inputString
   }
-
-  // @transaction
-  // updatePriority(task: Task, isPriorityIncrease: boolean): void {
-  //   this.taskList = this.taskList.toMutable()
-  //   if (isPriorityIncrease) {
-  //     do {
-  //       if (this.taskList.indexOf(task) == 0)
-  //         break
-  //       const taskPosition: number = this.taskList.indexOf(task)
-  //       this.taskList[taskPosition] = this.taskList[taskPosition - 1]
-  //       this.taskList[taskPosition - 1] = task
-  //     } while (!this.taskList[this.taskList.indexOf(task) + 1].notCompleted)
-  //   }
-  //   else {
-  //     do {
-  //       if (this.taskList.indexOf(task) == this.taskList.length - 1)
-  //         break
-  //       const taskPosition: number = this.taskList.indexOf(task)
-  //       this.taskList[taskPosition] = this.taskList[taskPosition + 1]
-  //       this.taskList[taskPosition + 1] = task
-  //     } while (!this.taskList[this.taskList.indexOf(task) - 1].notCompleted)
-  //   }
-  // }
 
   @transaction
   swapTasks(): void {

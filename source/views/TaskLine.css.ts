@@ -71,27 +71,6 @@ export const style = restyler(() => {
     }
     `,
 
-    InactiveEdit: css`
-    margin: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    padding: 9px 15px;
-    img {
-        width: 20px;
-        filter: invert(100%);
-      }
-    min-height: 45px;
-    background-color: rgba(39, 39, 39, 0.5);
-    backdrop-filter: blur(5px);
-    transition: background-color .2s ease;
-    :hover, :focus {
-      transition: background-color .2s ease;
-      background-color: rgba(105, 153, 0, 0.5);
-    }
-    `,
-
     Task: css`
       display: flex;
       cursor: pointer;
@@ -149,13 +128,10 @@ export const style = restyler(() => {
     Input: css`
       margin: 0;
       width: calc(100vw - 145px);
-      height: 45px;
-      color: #fff;
-      font-size: 24px;
-      font-family: Calibri, Tahoma, Arial, sans-serif;
-      border: none;
-      resize: none;
-      padding: 6px 10px 0 10px;
+      min-height: 45px;
+      overflow: hidden;
+      cursor: text;
+      padding: 9px 10px;
       border-radius: 3px 0 0 3px;
       background-color: rgba(36, 36, 36, 0.55);
       backdrop-filter: blur(5px);

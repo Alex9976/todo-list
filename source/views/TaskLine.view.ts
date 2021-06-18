@@ -6,9 +6,9 @@ import { App } from '../models/App'
 export function TaskLine(id: string, task: Task, app: App) {
   return (
     LI('Task' + id, e => {
-      let submitInput: HTMLTextAreaElement
+      let submitInput: HTMLDivElement
       e.className = style.class.Task
-      if (task.notCompleted)
+      if (task.notCompleted && !task.isEdit)
         e.draggable = true
       else
         e.draggable = false
@@ -22,21 +22,20 @@ export function TaskLine(id: string, task: Task, app: App) {
         })
       }
       else {
-        TextArea('Task', e => {
+        Div('Task', e => {
           submitInput = e
+          submitInput.contentEditable = 'true'
           submitInput.onkeydown = e => {
             if (e.key == 'Enter' && !e.shiftKey) {
               e.preventDefault()
-              if (submitInput.value.trim() != '') {
-                app.editTask(task, submitInput.value)
+              if (submitInput.innerHTML.trim() != '') {
+                app.editTask(task, submitInput.innerHTML)
               }
-              submitInput.value = ''
+              submitInput.innerHTML = ''
             }
           }
-          e.value = task.text
+          e.innerHTML = task.text
           e.className = style.class.Input
-          e.cols = 40
-          e.rows = 20
         })
       }
       if (task.notCompleted) {
@@ -64,11 +63,11 @@ export function TaskLine(id: string, task: Task, app: App) {
         Div('Edit', e => {
           e.onclick = () => {
             if (task.isEdit)
-              app.editTask(task, submitInput.value)
+              app.editTask(task, submitInput.innerHTML)
             else
               app.editTask(task)
           }
-          e.className = task.notCompleted ? style.class.Edit : style.class.InactiveEdit
+          e.className = style.class.Edit
           Img('Edit-icon', e => {
             e.src = task.isEdit ? '../assets/check.svg' : '../assets/pencil.svg'
           })

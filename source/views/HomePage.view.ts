@@ -37,8 +37,6 @@ export function HomePageView(app: App) {
           submitInput = e
           e.placeholder = 'Enter the task'
           e.className = style.class.Input
-          e.cols = 40
-          e.rows = 20
         })
         Div('Submit', e => {
           e.onclick = () => {

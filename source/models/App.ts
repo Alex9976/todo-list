@@ -26,15 +26,9 @@ export class App extends ObservableObject {
     }
   }
 
-  convertLineBreaks(inputString: string, isReplacedToBr: boolean): string {
-    if (isReplacedToBr) {
-      while (inputString.includes('\n'))
-        inputString = inputString.replace('\n', '<br />')
-    }
-    else {
-      while (inputString.includes('<br />'))
-        inputString = inputString.replace('<br />', '\n')
-    }
+  convertLineBreaks(inputString: string): string {
+    while (inputString.includes('\n'))
+      inputString = inputString.replace('\n', '<br />')
     return inputString
   }
 
@@ -64,7 +58,7 @@ export class App extends ObservableObject {
   @transaction
   addTask(text: string): void {
     this.taskList = this.taskList.toMutable()
-    this.taskList.push(new Task(this.convertLineBreaks(text, true)))
+    this.taskList.push(new Task(this.convertLineBreaks(text)))
   }
 
   @transaction
@@ -77,12 +71,11 @@ export class App extends ObservableObject {
   editTask(task: Task, newText?: string): void {
     if (task.isEdit) {
       if (newText != null) {
-        task.text = this.convertLineBreaks(newText, true)
+        task.text = this.convertLineBreaks(newText)
       }
       task.isEdit = false
     }
     else {
-      task.text = this.convertLineBreaks(task.text, false)
       task.isEdit = true
     }
   }

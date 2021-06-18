@@ -14,8 +14,8 @@ export function TaskLine(id: string, task: Task, app: App) {
         e.draggable = false
       if (!task.isEdit) {
         Div('Task-element', e => {
-          e.onclick = () => {
-            task.changeActivity()
+          e.eventInfo = {
+            pointer: () => { task.changeActivity() }
           }
           e.className = task.notCompleted ? style.class.TaskElement : style.class.InactiveTaskElement
           e.innerHTML = task.text
@@ -25,9 +25,8 @@ export function TaskLine(id: string, task: Task, app: App) {
         Div('Task', e => {
           submitInput = e
           submitInput.contentEditable = 'true'
-          submitInput.onkeydown = e => {
-            if (e.key == 'Enter' && !e.shiftKey) {
-              e.preventDefault()
+          submitInput.eventInfo = {
+            keyboard: () => {
               if (submitInput.innerHTML.trim() != '') {
                 app.editTask(task, submitInput.innerHTML)
               }
@@ -42,8 +41,8 @@ export function TaskLine(id: string, task: Task, app: App) {
 
         //TODO: Replace to drag & drop
         Div('UpArrow', e => {
-          e.onclick = () => {
-            app.updatePriority(task, true)
+          e.eventInfo = {
+            pointer: () => { app.updatePriority(task, true) }
           }
           e.className = style.class.Arrow
           Img('Up-icon', e => {
@@ -51,8 +50,8 @@ export function TaskLine(id: string, task: Task, app: App) {
           })
         })
         Div('DownArrow', e => {
-          e.onclick = () => {
-            app.updatePriority(task, false)
+          e.eventInfo = {
+            pointer: () => { app.updatePriority(task, false) }
           }
           e.className = style.class.Arrow
           Img('Down-icon', e => {
@@ -61,11 +60,13 @@ export function TaskLine(id: string, task: Task, app: App) {
         })
 
         Div('Edit', e => {
-          e.onclick = () => {
-            if (task.isEdit)
-              app.editTask(task, submitInput.innerHTML)
-            else
-              app.editTask(task)
+          e.eventInfo = {
+            pointer: () => {
+              if (task.isEdit)
+                app.editTask(task, submitInput.innerHTML)
+              else
+                app.editTask(task)
+            }
           }
           e.className = style.class.Edit
           Img('Edit-icon', e => {
@@ -74,8 +75,8 @@ export function TaskLine(id: string, task: Task, app: App) {
         })
       }
       Div('Delete', e => {
-        e.onclick = () => {
-          app.deleteTask(task)
+        e.eventInfo = {
+          pointer: () => { app.deleteTask(task) }
         }
         e.className = task.notCompleted ? style.class.Delete : style.class.InactiveDelete
         Img('Delete-icon', e => {

@@ -39,15 +39,17 @@ export function HomePageView(app: App) {
           e.className = style.class.Input
         })
         Div('Submit', e => {
-          e.onclick = () => {
-            if (submitInput.value.trim() != '') {
-              app.addTask(submitInput.value)
-              submitInput.value = ''
-            }
+          e.eventInfo = {
+            pointer: () => {
+              if (submitInput.value.trim() != '') {
+                app.addTask(submitInput.value)
+                submitInput.value = ''
+              }
+            },
           }
-          submitInput.onkeydown = e => {
-            if (e.key == 'Enter' && !e.shiftKey) {
-              e.preventDefault()
+          submitInput.eventInfo = {
+            keyboard: () => {
+              //e.preventDefault()
               if (submitInput.value.trim() != '') {
                 app.addTask(submitInput.value)
               }

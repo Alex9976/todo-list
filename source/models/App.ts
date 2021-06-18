@@ -1,4 +1,5 @@
-import { ObservableObject, reaction, Ref, transaction, unobservable } from 'reactronic'
+import { nonreactive, ObservableObject, reaction, Ref, trace, TraceLevel, transaction, unobservable } from 'reactronic'
+import { KeyboardModifiers, PointerButton, WebSensors } from 'reactronic-front'
 import { Page } from './Page'
 import { Task } from './Task'
 
@@ -6,6 +7,7 @@ export class App extends ObservableObject {
   @unobservable readonly version: string
   @unobservable readonly homePage: Page
   @unobservable completedTasks: number
+  @unobservable sensors: WebSensors
   taskList: Task[] = []
   activePage: Page
 
@@ -13,6 +15,7 @@ export class App extends ObservableObject {
     super()
     this.completedTasks = 0
     this.version = version
+    this.sensors = new WebSensors()
     this.homePage = new Page('/home', '<img src="assets/home.svg"/>', 'Todo')
     this.activePage = this.homePage
     this.activePage.isActive = true
@@ -85,5 +88,36 @@ export class App extends ObservableObject {
     this.completedTasks = this.taskList.filter(x => !x.notCompleted).length
     localStorage.setItem('tasks', JSON.stringify(this.taskList))
   }
+
+  @reaction
+  @trace(TraceLevel.Suppress)
+  pointerActions(): void {
+    try {
+      const pointer = this.sensors.pointer
+      if (pointer.click === PointerButton.Left) {
+        const action = pointer.eventInfos[0]
+        if (action instanceof Function)
+          nonreactive(() => action())
+      }
+    } catch (e) {
+      console.error(e)
+    }
+  }
+
+  @reaction
+  @trace(TraceLevel.Suppress)
+  keyboardActions(): void {
+    try {
+      const keyboard = this.sensors.keyboard
+      if ((keyboard.down === 'Enter') && (keyboard.modifiers !== KeyboardModifiers.Shift)) {
+        const action = keyboard.eventInfos[0]
+        if (action instanceof Function)
+          nonreactive(() => action())
+      }
+    } catch (e) {
+      console.error(e)
+    }
+  }
+
 
 }

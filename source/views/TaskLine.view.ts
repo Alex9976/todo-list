@@ -12,12 +12,24 @@ export function TaskLine(id: string, task: Task, app: App) {
         e.draggable = true
       else
         e.draggable = false
+      e.addEventListener('dragstart', () => {
+        e.classList.add('selected')
+        e.classList.add('moveable' + id)
+      })
+
+      e.addEventListener('dragend', () => {
+        e.classList.remove('selected')
+        e.classList.remove('moveable' + id)
+      })
+
       if (!task.isEdit) {
         Div('Task-element', e => {
           e.eventInfo = {
             pointer: () => { task.changeActivity() }
           }
           e.className = task.notCompleted ? style.class.TaskElement : style.class.InactiveTaskElement
+          if (task.notCompleted)
+            e.classList.add('moveable' + id)
           e.innerHTML = task.text
         })
       }
@@ -38,25 +50,25 @@ export function TaskLine(id: string, task: Task, app: App) {
       }
       if (task.notCompleted) {
 
-        //TODO: Replace to drag & drop
-        Div('UpArrow', e => {
-          e.eventInfo = {
-            pointer: () => { app.updatePriority(task, true) }
-          }
-          e.className = style.class.Arrow
-          Img('Up-icon', e => {
-            e.src = '../assets/up-arrow.svg'
-          })
-        })
-        Div('DownArrow', e => {
-          e.eventInfo = {
-            pointer: () => { app.updatePriority(task, false) }
-          }
-          e.className = style.class.Arrow
-          Img('Down-icon', e => {
-            e.src = '../assets/down-arrow.svg'
-          })
-        })
+        // //TODO: Replace to drag & drop
+        // Div('UpArrow', e => {
+        //   e.eventInfo = {
+        //     pointer: () => { app.updatePriority(task, true) }
+        //   }
+        //   e.className = style.class.Arrow
+        //   Img('Up-icon', e => {
+        //     e.src = '../assets/up-arrow.svg'
+        //   })
+        // })
+        // Div('DownArrow', e => {
+        //   e.eventInfo = {
+        //     pointer: () => { app.updatePriority(task, false) }
+        //   }
+        //   e.className = style.class.Arrow
+        //   Img('Down-icon', e => {
+        //     e.src = '../assets/down-arrow.svg'
+        //   })
+        // })
 
         Div('Edit', e => {
           e.eventInfo = {

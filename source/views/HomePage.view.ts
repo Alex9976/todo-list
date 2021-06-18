@@ -29,6 +29,38 @@ export function HomePageView(app: App) {
             TaskLine(ind.toString(), element, app)
           ind++
         })
+
+
+        const getNextElementID = (currentElement: any) => {
+          const list = (currentElement.classList as DOMTokenList).toString()
+          if (list.includes('moveable')) {
+            const nextId = parseInt(list.substring(list.indexOf('moveable') + 8, list.length))
+            return nextId
+          }
+          else
+            return null
+        }
+
+        e.addEventListener('dragover', (evt) => {
+          evt.preventDefault()
+          if (evt.target === null)
+            return
+          const activeElement = e.querySelector('.selected')
+          const activeClassList = activeElement?.classList.toString()
+          if (activeClassList != null) {
+            const currentItemID = parseInt(activeClassList.substring(activeClassList.indexOf('moveable') + 8, activeClassList.length))
+
+            const currentElement = evt.target
+            const nextItemId = getNextElementID(currentElement)
+
+            if (nextItemId === currentItemID || nextItemId === null) {
+              return
+            }
+            app.swapTasks(currentItemID, nextItemId)
+          }
+        })
+
+
       })
       Div('Task-input', e => {
         let inputArea: HTMLTextAreaElement

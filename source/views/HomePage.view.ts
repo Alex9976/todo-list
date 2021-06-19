@@ -10,13 +10,11 @@ export function HomePageView(app: App) {
       RxUL('List', null, e => {
         e.className = style.class.List
 
-        //TODO: Find an alternative
-        let ind: number = 0
-
-        app.taskList.forEach((element, index) => {
+        let index: number = 0
+        app.taskList.forEach((element) => {
           if (element.notCompleted)
-            TaskLine(ind.toString(), element, app)
-          ind++
+            TaskLine(index.toString(), element, app)
+          index++
         })
         if (app.completedTasks > 0) {
           Div('Completed-tasks', e => {
@@ -24,10 +22,10 @@ export function HomePageView(app: App) {
             e.innerHTML = 'Completed ' + app.completedTasks.toString()
           })
         }
-        app.taskList.forEach((element, index) => {
+        app.taskList.forEach((element) => {
           if (!element.notCompleted)
-            TaskLine(ind.toString(), element, app)
-          ind++
+            TaskLine(index.toString(), element, app)
+          index++
         })
 
 

@@ -76,10 +76,7 @@ export const style = restyler(() => {
       cursor: pointer;
       user-select: none;
       margin: 6px 0;
-
-      max-width: 100%;
       min-height: 45px;
-      align-items: stretch;
       @media screen and (max-width: 1000px) {
         min-height: 40px;
       }
@@ -101,9 +98,15 @@ export const style = restyler(() => {
       backdrop-filter: blur(5px);
       transition: background-color .2s ease;
       user-select: none;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
       :hover {
         transition: background-color .2s ease;
         background-color: rgba(53, 56, 58, 1);
+      }
+      :active {
+        background-color: rgba(36, 36, 36, 1);
       }
     `,
 
@@ -118,6 +121,9 @@ export const style = restyler(() => {
       backdrop-filter: blur(5px);
       background-color: rgba(36, 36, 36, 0.35);
       transition: background-color .2s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
       :hover {
         transition: background-color .2s ease;
         background-color: rgba(53, 56, 58, 0.35);
@@ -131,10 +137,13 @@ export const style = restyler(() => {
       overflow: hidden;
       cursor: text;
       padding: 9px 10px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
       border-radius: 3px 0 0 3px;
       background-color: rgba(36, 36, 36, 0.55);
       backdrop-filter: blur(5px);
-      transition: background-color .2s ease;
+      /*transition: background-color .2s ease;*/
       :hover, :focus {
         transition: background-color .2s ease;
         background-color: rgba(53, 56, 58, 0.25);

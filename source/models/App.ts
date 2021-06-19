@@ -22,7 +22,7 @@ export class App extends ObservableObject {
     this.activePage = this.homePage
     this.activePage.isActive = true
     const saveTasks = JSON.parse(localStorage.getItem('tasks') as string) as Task[]
-    if (saveTasks != null) {
+    if (saveTasks !== null) {
       saveTasks.forEach(element => {
         const task = new Task(element.text)
         task.notCompleted = element.notCompleted
@@ -110,6 +110,5 @@ export class App extends ObservableObject {
       console.error(e)
     }
   }
-
 
 }

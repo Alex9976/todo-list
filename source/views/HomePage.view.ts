@@ -28,7 +28,6 @@ export function HomePageView(app: App) {
           index++
         })
 
-
         const getNextElementID = (currentElement: any) => {
           const list = (currentElement.classList as DOMTokenList).toString()
           if (list.includes('moveable')) {
@@ -50,7 +49,7 @@ export function HomePageView(app: App) {
           return nextElement
         }
 
-        e.addEventListener('dragover', (evt) => {
+        e.ondragover = evt => {
           evt.preventDefault()
           if (evt.target === null)
             return
@@ -64,13 +63,16 @@ export function HomePageView(app: App) {
             const nextElement = getNextElement(evt.clientY, currentElement)
 
             if (nextItemId === currentItemID || nextItemId === null) {
+              if (app.nextItemId === app.taskList.length - 1 && nextItemId === null) {
+                const taskElements = e.querySelectorAll('.move')
+                e.insertBefore(taskElements[taskElements.length - 1], activeElement)
+              }
               return
             }
             e.insertBefore(activeElement, nextElement.parentNode)
             app.nextItemId = nextItemId
           }
-        })
-
+        }
 
       })
       Div('Task-input', e => {

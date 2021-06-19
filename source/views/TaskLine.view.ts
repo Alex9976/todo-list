@@ -13,6 +13,11 @@ export function TaskLine(id: string, task: Task, app: App) {
       else
         e.draggable = false
 
+      if (task.notCompleted)
+        e.classList.add('move')
+      else
+        e.classList.remove('move')
+
       e.ondragstart = () => {
         e.classList.add('selected')
         e.classList.add('moveable' + id)
@@ -43,7 +48,7 @@ export function TaskLine(id: string, task: Task, app: App) {
           inputArea.contentEditable = 'true'
           inputArea.eventInfo = {
             keyboard: () => {
-              if (inputArea.innerHTML.trim() != '') {
+              if (inputArea.innerHTML.trim() !== '') {
                 app.editTask(task, inputArea.innerHTML)
               }
             }

@@ -41,11 +41,9 @@ export function HomePageView(app: App) {
         const getNextElement = (cursorPosition: any, currentElement: any) => {
           const currentElementCoord = currentElement.getBoundingClientRect()
           const currentElementCenter = currentElementCoord.y + currentElementCoord.height / 2
-
           const nextElement = (cursorPosition < currentElementCenter) ?
             currentElement :
             currentElement.nextElementSibling
-
           return nextElement
         }
 
@@ -54,17 +52,17 @@ export function HomePageView(app: App) {
           if (evt.target === null)
             return
           const activeElement = e.querySelector('.selected')
+          const taskElements = e.querySelectorAll('.move')
           const activeClassList = activeElement?.classList.toString()
           if (activeClassList && activeElement) {
             const currentItemID = parseInt(activeClassList.substring(activeClassList.indexOf('moveable') + 8, activeClassList.length))
-
+            app.nextItemId = app.currentItemID
             const currentElement = evt.target
             const nextItemId = getNextElementID(currentElement)
             const nextElement = getNextElement(evt.clientY, currentElement)
 
             if (nextItemId === currentItemID || nextItemId === null) {
               if (app.nextItemId === app.taskList.length - 1 && nextItemId === null) {
-                const taskElements = e.querySelectorAll('.move')
                 e.insertBefore(taskElements[taskElements.length - 1], activeElement)
               }
               return

@@ -39,14 +39,15 @@ export class App extends ObservableObject {
 
   @transaction
   swapTasks(): void {
-    this.taskList = this.taskList.toMutable()
-    const task: Task = this.taskList[this.currentItemID]
-    this.taskList.splice(this.currentItemID, 1)
-    const list = this.taskList.slice(this.nextItemId)
-    this.taskList.splice(this.nextItemId)
-    this.taskList.push(task)
-    this.taskList = this.taskList.concat(list)
-
+    if (this.currentItemID !== this.nextItemId) {
+      this.taskList = this.taskList.toMutable()
+      const task: Task = this.taskList[this.currentItemID]
+      this.taskList.splice(this.currentItemID, 1)
+      const list = this.taskList.slice(this.nextItemId)
+      this.taskList.splice(this.nextItemId)
+      this.taskList.push(task)
+      this.taskList = this.taskList.concat(list)
+    }
   }
 
   @transaction

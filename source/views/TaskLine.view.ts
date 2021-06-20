@@ -33,7 +33,7 @@ export function TaskLine(id: string, task: Task, app: App) {
 
       if (!task.isEdit) {
         Div('Task-element', e => {
-          e.eventInfo = {
+          e.sensorData = {
             pointer: () => { task.changeActivity() }
           }
           e.className = task.notCompleted ? style.class.TaskElement : style.class.InactiveTaskElement
@@ -46,7 +46,7 @@ export function TaskLine(id: string, task: Task, app: App) {
         Div('Task', e => {
           inputArea = e
           inputArea.contentEditable = 'true'
-          inputArea.eventInfo = {
+          inputArea.sensorData = {
             keyboard: () => {
               if (inputArea.innerHTML.trim() !== '') {
                 app.editTask(task, inputArea.innerHTML)
@@ -59,7 +59,7 @@ export function TaskLine(id: string, task: Task, app: App) {
       }
       if (task.notCompleted) {
         Div('Edit', e => {
-          e.eventInfo = {
+          e.sensorData = {
             pointer: () => {
               if (task.isEdit)
                 app.editTask(task, inputArea.innerHTML)
@@ -74,7 +74,7 @@ export function TaskLine(id: string, task: Task, app: App) {
         })
       }
       Div('Delete', e => {
-        e.eventInfo = {
+        e.sensorData = {
           pointer: () => { app.deleteTask(task) }
         }
         e.className = task.notCompleted ? style.class.Delete : style.class.InactiveDelete

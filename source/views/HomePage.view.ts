@@ -56,13 +56,14 @@ export function HomePageView(app: App) {
           const activeClassList = activeElement?.classList.toString()
           if (activeClassList && activeElement) {
             const currentItemID = parseInt(activeClassList.substring(activeClassList.indexOf('moveable') + 8, activeClassList.length))
+            const bufferID = app.nextItemId
             app.nextItemId = app.currentItemID
             const currentElement = evt.target
             const nextItemId = getNextElementID(currentElement)
             const nextElement = getNextElement(evt.clientY, currentElement)
 
-            if (nextItemId === currentItemID || nextItemId === null) {
-              if (app.nextItemId === app.taskList.length - 1 && nextItemId === null) {
+            if ((nextItemId === currentItemID) || (nextItemId === null)) {
+              if ((bufferID === app.taskList.length - 1 - app.completedTasks) && (nextItemId === null)) {
                 e.insertBefore(taskElements[taskElements.length - 1], activeElement)
               }
               return
@@ -80,7 +81,7 @@ export function HomePageView(app: App) {
           inputArea = e
           e.placeholder = 'Enter the task'
           e.className = style.class.Input
-          inputArea.eventInfo = {
+          inputArea.sensorData = {
             keyboard: () => {
               if (inputArea.value.trim() != '') {
                 app.addTask(inputArea.value)
@@ -90,7 +91,7 @@ export function HomePageView(app: App) {
           }
         })
         Div('Submit', e => {
-          e.eventInfo = {
+          e.sensorData = {
             pointer: () => {
               if (inputArea.value.trim() != '') {
                 app.addTask(inputArea.value)

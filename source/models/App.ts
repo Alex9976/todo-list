@@ -87,7 +87,7 @@ export class App extends ObservableObject {
     try {
       const pointer = this.sensors.pointer
       if (pointer.click === PointerButton.Left) {
-        const action = pointer.eventInfos[0]
+        const action = pointer.sensorDataList[0]
         if (action instanceof Function)
           nonreactive(() => action())
       }
@@ -102,7 +102,7 @@ export class App extends ObservableObject {
     try {
       const keyboard = this.sensors.keyboard
       if ((keyboard.down === 'Enter') && (keyboard.modifiers !== KeyboardModifiers.Shift)) {
-        const action = keyboard.eventInfos[0]
+        const action = keyboard.sensorDataList[0]
         if (action instanceof Function)
           nonreactive(() => action())
         this.sensors.preventDefault()

@@ -27,8 +27,7 @@ export function TaskLine(id: string, task: Task, app: App) {
       e.ondragend = () => {
         e.classList.remove('selected')
         e.classList.remove('moveable' + id)
-        if (app.currentItemID != app.nextItemId)
-          app.swapTasks()
+        app.swapTasks()
       }
 
       if (!task.isEdit) {

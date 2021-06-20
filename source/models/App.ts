@@ -8,14 +8,16 @@ export class App extends ObservableObject {
   @unobservable readonly homePage: Page
   @unobservable completedTasks: number
   @unobservable sensors: WebSensors
-  @unobservable currentItemID: number = 0
-  @unobservable nextItemId: number = 0
+  @unobservable currentItemID: number
+  @unobservable nextItemId: number
   taskList: Task[] = []
   activePage: Page
 
   constructor(version: string) {
     super()
     this.completedTasks = 0
+    this.currentItemID = 0
+    this.nextItemId = 0
     this.version = version
     this.sensors = new WebSensors()
     this.homePage = new Page('/home', '<img src="assets/home.svg"/>', 'Todo')
@@ -39,6 +41,7 @@ export class App extends ObservableObject {
 
   @transaction
   swapTasks(): void {
+    console.log(this.currentItemID + ' to ' + this.nextItemId)
     if (this.currentItemID !== this.nextItemId) {
       this.taskList = this.taskList.toMutable()
       const task: Task = this.taskList[this.currentItemID]

@@ -41,9 +41,11 @@ export function HomePageView(app: App) {
         const getNextElement = (cursorPosition: any, currentElement: any) => {
           const currentElementCoord = currentElement.getBoundingClientRect()
           const currentElementCenter = currentElementCoord.y + currentElementCoord.height / 2
+
           const nextElement = (cursorPosition < currentElementCenter) ?
             currentElement :
             currentElement.nextElementSibling
+
           return nextElement
         }
 
@@ -52,22 +54,19 @@ export function HomePageView(app: App) {
           if (evt.target === null)
             return
           const activeElement = e.querySelector('.selected')
-          const taskElements = e.querySelectorAll('.move')
-          const activeClassList = activeElement?.classList.toString()
-          if (activeClassList && activeElement) {
-            const currentItemID = parseInt(activeClassList.substring(activeClassList.indexOf('moveable') + 8, activeClassList.length))
-            const bufferID = app.nextItemId
-            app.nextItemId = app.currentItemID
+          if (activeElement) {
             const currentElement = evt.target
             const nextItemId = getNextElementID(currentElement)
             const nextElement = getNextElement(evt.clientY, currentElement)
 
-            if ((nextItemId === currentItemID) || (nextItemId === null)) {
-              if ((bufferID === app.taskList.length - 1 - app.completedTasks) && (nextItemId === null)) {
+            if (nextItemId === app.currentItemID || nextItemId === null) {
+              if (app.nextItemId === app.taskList.length - 1 && nextItemId === null) {
+                const taskElements = e.querySelectorAll('.move')
                 e.insertBefore(taskElements[taskElements.length - 1], activeElement)
               }
               return
             }
+            console.log(app.currentItemID + ' ' + nextItemId)
             e.insertBefore(activeElement, nextElement.parentNode)
             app.nextItemId = nextItemId
           }

@@ -13,20 +13,22 @@ export function TaskLine(id: string, task: Task, app: App) {
       else
         e.draggable = false
 
-      if (task.notCompleted)
+      if (task.notCompleted) {
+        e.classList.add('moveable' + id)
         e.classList.add('move')
-      else
+      }
+      else {
+        e.classList.remove('moveable' + id)
         e.classList.remove('move')
+      }
 
       e.ondragstart = () => {
         e.classList.add('selected')
-        e.classList.add('moveable' + id)
         app.currentItemID = app.taskList.indexOf(task)
       }
 
       e.ondragend = () => {
         e.classList.remove('selected')
-        e.classList.remove('moveable' + id)
         app.swapTasks()
       }
 
@@ -36,8 +38,6 @@ export function TaskLine(id: string, task: Task, app: App) {
             pointer: () => { task.changeActivity() }
           }
           e.className = task.notCompleted ? style.class.TaskElement : style.class.InactiveTaskElement
-          if (task.notCompleted)
-            e.classList.add('moveable' + id)
           e.innerHTML = task.text
         })
       }

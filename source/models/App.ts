@@ -41,7 +41,6 @@ export class App extends ObservableObject {
 
   @transaction
   swapTasks(): void {
-    console.log(this.currentItemID + ' to ' + this.nextItemId)
     if (this.currentItemID !== this.nextItemId) {
       this.taskList = this.taskList.toMutable()
       const task: Task = this.taskList[this.currentItemID]

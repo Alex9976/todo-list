@@ -29,7 +29,7 @@ export function HomePageView(app: App) {
         })
 
         const getNextElementID = (currentElement: any) => {
-          const list = (currentElement.classList as DOMTokenList).toString()
+          const list = (currentElement.parentNode.classList as DOMTokenList).toString()
           if (list.includes('moveable')) {
             const nextId = parseInt(list.substring(list.indexOf('moveable') + 8, list.length))
             return nextId
@@ -43,8 +43,8 @@ export function HomePageView(app: App) {
           const currentElementCenter = currentElementCoord.y + currentElementCoord.height / 2
 
           const nextElement = (cursorPosition < currentElementCenter) ?
-            currentElement :
-            currentElement.nextElementSibling
+            currentElement.parentNode :
+            currentElement.parentNode.nextElementSibling
 
           return nextElement
         }
@@ -66,8 +66,7 @@ export function HomePageView(app: App) {
               }
               return
             }
-            console.log(app.currentItemID + ' ' + nextItemId)
-            e.insertBefore(activeElement, nextElement.parentNode)
+            e.insertBefore(activeElement, nextElement)
             app.nextItemId = nextItemId
           }
         }

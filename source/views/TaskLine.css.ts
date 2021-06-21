@@ -89,7 +89,7 @@ export const style = restyler(() => {
     TaskElement: css`
       margin: 0;
       padding: 9px 10px;
-      width: 80%;
+      width: 40%;
       word-wrap: break-word;
       flex: 1 0 auto;
       min-height: 45px;
@@ -117,6 +117,7 @@ export const style = restyler(() => {
       min-height: 45px;
       padding: 9px 10px;
       word-wrap: break-word;
+      width: 40%;
       border-radius: 3px 0 0 3px;
       backdrop-filter: blur(5px);
       background-color: rgba(36, 36, 36, 0.35);

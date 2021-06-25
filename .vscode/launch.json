@@ -5,8 +5,8 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Chrome - localhost:3333",
-      "type": "chrome",
+      "name": "Chrome",
+      "type": "pwa-chrome",
       "request": "launch",
       "url": "http://localhost:3333",
       "webRoot": "${workspaceRoot}",
@@ -17,14 +17,15 @@
         "${workspaceFolder}/node_modules/**/*.js",
         "webpack:///./node_modules/**/*.js",
         "<node_internals>/**/*.js",
-        "vendors.js"
+        "vendors.js",
+        "app.js"
       ]
     },
     {
-      "name": "Chrome - localhost:3333/#/tutorial",
-      "type": "chrome",
-      "request": "launch",
-      "url": "http://localhost:3333/#/tutorial",
+      "name": "Attach to Chrome",
+      "type": "pwa-chrome",
+      "request": "attach",
+      "port": 9222,
       "webRoot": "${workspaceRoot}",
       "sourceMaps": true,
       "smartStep": true,
@@ -33,7 +34,8 @@
         "${workspaceFolder}/node_modules/**/*.js",
         "webpack:///./node_modules/**/*.js",
         "<node_internals>/**/*.js",
-        "vendors.js"
+        "vendors.js",
+        "app.js"
       ]
     },
   ]

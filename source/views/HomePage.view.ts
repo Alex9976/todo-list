@@ -28,27 +28,6 @@ export function HomePageView(app: App) {
           index++
         })
 
-        const getNextElementID = (currentElement: any) => {
-          const list = (currentElement.parentNode.classList as DOMTokenList).toString()
-          if (list.includes('moveable')) {
-            const nextId = parseInt(list.substring(list.indexOf('moveable') + 8, list.length))
-            return nextId
-          }
-          else
-            return null
-        }
-
-        const getNextElement = (cursorPosition: any, currentElement: any) => {
-          const currentElementCoord = currentElement.getBoundingClientRect()
-          const currentElementCenter = currentElementCoord.y + currentElementCoord.height / 2
-
-          const nextElement = (cursorPosition < currentElementCenter) ?
-            currentElement.parentNode :
-            currentElement.parentNode.nextElementSibling
-
-          return nextElement
-        }
-
         e.ondragover = evt => {
           evt.preventDefault()
           if (evt.target === null)
@@ -105,4 +84,25 @@ export function HomePageView(app: App) {
       })
     })
   )
+}
+
+const getNextElementID = (currentElement: any) => {
+  const list = (currentElement.parentNode.classList as DOMTokenList).toString()
+  if (list.includes('moveable')) {
+    const nextId = parseInt(list.substring(list.indexOf('moveable') + 8, list.length))
+    return nextId
+  }
+  else
+    return null
+}
+
+const getNextElement = (cursorPosition: any, currentElement: any) => {
+  const currentElementCoord = currentElement.getBoundingClientRect()
+  const currentElementCenter = currentElementCoord.y + currentElementCoord.height / 2
+
+  const nextElement = (cursorPosition < currentElementCenter) ?
+    currentElement.parentNode :
+    currentElement.parentNode.nextElementSibling
+
+  return nextElement
 }

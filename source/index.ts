@@ -13,4 +13,6 @@ document.body.onresize = () => Globals.Resizing.pulse(-1)
 
 const app = Transaction.run(() => new App(version))
 
-AppWindow(app)
+const appWindow = AppWindow(app)
+renderChildrenNow()
+app.sensors.listen(appWindow.native)

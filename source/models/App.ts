@@ -25,10 +25,10 @@ export class App extends ObservableObject {
     this.activePage.isActive = true
     const saveTasks = JSON.parse(localStorage.getItem('tasks') as string) as Task[]
     if (saveTasks !== null) {
-      saveTasks.forEach(element => {
-        const task = new Task(element.text)
-        task.notCompleted = element.notCompleted
-        this.taskList.push(task)
+      this.taskList = saveTasks.map(x => {
+        const task = new Task(x.text)
+        task.notCompleted = x.notCompleted
+        return task
       })
     }
   }

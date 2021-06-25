@@ -69,7 +69,7 @@ export function TaskLine(id: string, task: Task, app: App) {
           }
           e.className = style.class.Edit
           Img('Edit-icon', e => {
-            e.src = task.isEdit ? '../assets/check.svg' : '../assets/pencil.svg'
+            e.src = task.isEdit ? './assets/check.svg' : './assets/pencil.svg'
           })
         })
       }
@@ -79,7 +79,7 @@ export function TaskLine(id: string, task: Task, app: App) {
         }
         e.className = task.notCompleted ? style.class.Delete : style.class.InactiveDelete
         Img('Delete-icon', e => {
-          e.src = '../assets/trash.svg'
+          e.src = './assets/trash.svg'
         })
       })
     })

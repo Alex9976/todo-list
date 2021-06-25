@@ -78,7 +78,7 @@ export function HomePageView(app: App) {
           }
           e.className = style.class.Submit
           Img('Add-icon', e => {
-            e.src = '../assets/add.svg'
+            e.src = './assets/add.svg'
           })
         })
       })

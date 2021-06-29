@@ -100,6 +100,32 @@ export class App extends ObservableObject {
 
   @reaction
   @trace(TraceLevel.Suppress)
+  dragActions(): void {
+    try {
+      const pointer = this.sensors.pointer
+      pointer.revision
+      if (this.sensors.currentEvent?.type === 'dragstart') {
+        const action = pointer.sensorDataList[0]
+        if (action instanceof Function)
+          nonreactive(() => action())
+      }
+      if (this.sensors.currentEvent?.type === 'dragend') {
+        console.log(pointer.sensorDataList[0])
+        this.swapTasks()
+      }
+      if (this.sensors.currentEvent?.type === 'dragover') {
+        this.sensors.preventDefault()
+        const action = pointer.sensorDataList[0]
+        /*if (action instanceof Function)
+          nonreactive(() => action())*/
+      }
+    } catch (e) {
+      console.error(e)
+    }
+  }
+
+  @reaction
+  @trace(TraceLevel.Suppress)
   keyboardActions(): void {
     try {
       const keyboard = this.sensors.keyboard

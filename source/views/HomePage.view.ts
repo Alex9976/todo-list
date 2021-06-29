@@ -28,6 +28,27 @@ export function HomePageView(app: App) {
           index++
         })
 
+        /*  e.sensorData = {
+            pointer: () => {
+              const activeElement = e.querySelector('.selected')
+              // if (activeElement) {
+              //   const currentElement = evt.target
+              //   const nextItemId = getNextElementID(currentElement)
+              //   const nextElement = getNextElement(evt.clientY, currentElement)
+
+              //   if (nextItemId === app.currentItemID || nextItemId === null) {
+              //     if (app.nextItemId === app.taskList.length - 1 && nextItemId === null) {
+              //       const taskElements = e.querySelectorAll('.move')
+              //       e.insertBefore(taskElements[taskElements.length - 1], activeElement)
+              //     }
+              //     return
+              //   }
+              //   e.insertBefore(activeElement, nextElement)
+              //   app.nextItemId = nextItemId
+              // }
+            }
+          }*/
+
         e.ondragover = evt => {
           evt.preventDefault()
           if (evt.target === null)

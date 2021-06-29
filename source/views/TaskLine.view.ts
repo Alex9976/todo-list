@@ -24,17 +24,11 @@ export function TaskLine(id: string, task: Task, app: App) {
 
       e.sensorData = {
         pointer: () => {
-          e.classList.add('selected')
           app.currentItemID = app.taskList.indexOf(task)
           app.nextItemId = app.currentItemID
         }
       }
 
-      /* e.sensorData = {
-         pointer: () => {
-           e.classList.remove('selected')
-         }
-       }*/
 
       if (!task.isEdit) {
         Div('Task-element', e => {

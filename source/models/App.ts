@@ -105,19 +105,20 @@ export class App extends ObservableObject {
       const pointer = this.sensors.pointer
       pointer.revision
       if (this.sensors.currentEvent?.type === 'dragstart') {
+        (this.sensors.currentEvent?.target as HTMLElement).classList.add('selected')
         const action = pointer.sensorDataList[0]
         if (action instanceof Function)
           nonreactive(() => action())
       }
       if (this.sensors.currentEvent?.type === 'dragend') {
-        console.log(pointer.sensorDataList[0])
+        (this.sensors.currentEvent?.target as HTMLElement).classList.remove('selected')
         this.swapTasks()
       }
       if (this.sensors.currentEvent?.type === 'dragover') {
         this.sensors.preventDefault()
-        const action = pointer.sensorDataList[0]
-        /*if (action instanceof Function)
-          nonreactive(() => action())*/
+        const action = pointer.sensorDataList[2]
+        if (action instanceof Function)
+          nonreactive(() => action())
       }
     } catch (e) {
       console.error(e)

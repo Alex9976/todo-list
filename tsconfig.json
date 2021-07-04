@@ -54,7 +54,8 @@
     ]
   },
   "include": [
-    "./**/*.ts"
+    "source/**/*.ts",
+    "libraries/**/*.ts",
   ],
   "exclude": [
     "node_modules",

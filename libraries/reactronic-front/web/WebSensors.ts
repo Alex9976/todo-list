@@ -46,6 +46,9 @@ export class WebSensors extends Sensors {
         existing.removeEventListener('wheel', this.onWheel, { capture: true })
         existing.removeEventListener('keydown', this.onKeyDown, { capture: true })
         existing.removeEventListener('keyup', this.onKeyUp, { capture: true })
+        existing.removeEventListener('dragover', this.onPointerMove, { capture: true })
+        existing.removeEventListener('dragstart', this.onPointerDown, { capture: true })
+        existing.removeEventListener('dragend', this.onPointerUp, { capture: true })
       }
       this.element = element
       if (element && enabled) {
@@ -59,10 +62,13 @@ export class WebSensors extends Sensors {
         element.addEventListener('click', this.onClick, { capture: true })
         element.addEventListener('dblclick', this.onDblClick, { capture: true })
         element.addEventListener('touchstart', this.onTouchStart, { capture: true })
-        element.addEventListener('touchend', this.onTouchEnd, { capture: true } )
+        element.addEventListener('touchend', this.onTouchEnd, { capture: true })
         element.addEventListener('wheel', this.onWheel, { capture: true })
         element.addEventListener('keydown', this.onKeyDown, { capture: true })
         element.addEventListener('keyup', this.onKeyUp, { capture: true })
+        element.addEventListener('dragover', this.onPointerMove, { capture: true })
+        element.addEventListener('dragstart', this.onPointerDown, { capture: true })
+        element.addEventListener('dragend', this.onPointerUp, { capture: true })
       }
     }
   }

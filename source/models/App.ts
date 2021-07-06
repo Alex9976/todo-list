@@ -102,11 +102,12 @@ export class App extends ObservableObject {
   @trace(TraceLevel.Suppress)
   dragActions(): void {
     try {
-      const pointer = this.sensors.pointer
-      pointer.revision
+      const drag = this.sensors.drag
+      drag.revision
+      console.log(this.sensors.currentEvent?.type)
       if (this.sensors.currentEvent?.type === 'dragstart') {
         (this.sensors.currentEvent?.target as HTMLElement).classList.add('selected')
-        const action = pointer.sensorDataList[0]
+        const action = drag.sensorDataList[0]
         if (action instanceof Function)
           nonreactive(() => action())
       }
@@ -116,7 +117,7 @@ export class App extends ObservableObject {
       }
       if (this.sensors.currentEvent?.type === 'dragover') {
         this.sensors.preventDefault()
-        const action = pointer.sensorDataList[2]
+        const action = drag.sensorDataList[1]
         if (action instanceof Function)
           nonreactive(() => action())
       }

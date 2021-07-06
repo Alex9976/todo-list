@@ -29,7 +29,7 @@ export function HomePageView(app: App) {
         })
 
         e.sensorData = {
-          pointer: () => {
+          drag: () => {
             const activeElement = e.querySelector('.selected')
             if (activeElement) {
               const currentElement = app.sensors.currentEvent?.target

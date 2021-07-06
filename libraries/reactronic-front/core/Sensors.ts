@@ -6,7 +6,7 @@
 // automatically licensed under the license referred above.
 
 import { Sensitivity, sensitive, ToggleRef } from 'reactronic'
-import { Sensor, Keyboard, Pointer, Scroll, PointerButton, KeyboardModifiers, EMPTY_EVENT_DATA_LIST } from './Sensor'
+import { Sensor, Keyboard, Pointer, Scroll, PointerButton, KeyboardModifiers, EMPTY_EVENT_DATA_LIST, Drag } from './Sensor'
 import { SensorData, SensorDataPayload, SensorDataImportance } from './SensorData'
 
 export interface AbstractSensors {
@@ -15,6 +15,7 @@ export interface AbstractSensors {
   readonly keyboard: Readonly<Keyboard>
   readonly pointer: Readonly<Pointer>
   readonly scroll: Readonly<Scroll>
+  readonly drag: Readonly<Drag>
 }
 
 export class Sensors implements AbstractSensors {
@@ -23,6 +24,7 @@ export class Sensors implements AbstractSensors {
   readonly keyboard = new Keyboard()
   readonly pointer = new Pointer()
   readonly scroll = new Scroll()
+  readonly drag = new Drag()
 
   resetFocus(): void {
     // should be re-defined in derived classes
@@ -261,6 +263,57 @@ export class Sensors implements AbstractSensors {
       modifiers &= ~KeyboardModifiers.Meta
     return modifiers
   }
+
+  protected doDragOver(sensorDataList: unknown[], pointerId: number, clientX: number, clientY: number): void {
+    const p = this.drag
+    Sensors.rememberPointer(p, clientX, clientY)
+    p.sensorDataList = sensorDataList
+    if (p.draggableObject !== undefined) {
+      if (!p.captured)
+        p.captured = this.setPointerCapture(pointerId)
+      if (p.captured && p.draggingObject === undefined && Sensors.isDraggingDistance(p))
+        p.draggingObject = p.draggableObject
+    }
+  }
+
+  protected doDragStart(sensorDataList: unknown[], focus: unknown[],
+    pointerId: number, buttons: number, clientX: number, clientY: number): void {
+    const p = this.drag
+    Sensors.rememberPointer(p, clientX, clientY)
+    p.sensorDataList = sensorDataList
+    this.trackFocus(focus, true)
+    p.captured = false
+    p.draggableObject = undefined
+    p.draggingObject = undefined
+    p.draggingStartAtX = p.positionX
+    p.draggingStartAtY = p.positionY
+    p.draggingModifiers = this.keyboard.modifiers
+    p.down = buttons
+  }
+
+  protected doDragEnd(sensorDataList: unknown[], focus: unknown[],
+    pointerId: number, buttons: number, clientX: number, clientY: number): void {
+    const p = this.drag
+    Sensors.rememberPointer(p, clientX, clientY)
+    p.sensorDataList = sensorDataList
+    if (p.draggingObject !== undefined) {
+      p.droppedObject = p.draggingObject
+      p.droppedAtX = p.positionX
+      p.droppedAtY = p.positionY
+    }
+    // else if (!Sensors.isDraggingDistance(p))
+    //   p.click = p.down
+    p.draggableObject = undefined
+    p.draggingObject = undefined
+    p.draggingModifiers = KeyboardModifiers.None
+    p.draggingStartAtX = Infinity
+    p.draggingStartAtY = Infinity
+    p.up = p.down
+    p.down = PointerButton.None
+    if (p.captured)
+      p.captured = this.releasePointerCapture(pointerId)
+  }
+
 }
 
 export function grabSensorDataList<T = unknown>(path: any[], sym: symbol,
@@ -330,3 +383,4 @@ export function switchSensorDataList(existing: unknown[], updated: unknown[]): u
   }
   return updated
 }
+

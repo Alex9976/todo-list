@@ -46,9 +46,9 @@ export class WebSensors extends Sensors {
         existing.removeEventListener('wheel', this.onWheel, { capture: true })
         existing.removeEventListener('keydown', this.onKeyDown, { capture: true })
         existing.removeEventListener('keyup', this.onKeyUp, { capture: true })
-        existing.removeEventListener('dragover', this.onPointerMove, { capture: true })
-        existing.removeEventListener('dragstart', this.onPointerDown, { capture: true })
-        existing.removeEventListener('dragend', this.onPointerUp, { capture: true })
+        existing.removeEventListener('dragover', this.onDragOver, { capture: true })
+        existing.removeEventListener('dragstart', this.onDragStart, { capture: true })
+        existing.removeEventListener('dragend', this.onDragEnd, { capture: true })
       }
       this.element = element
       if (element && enabled) {
@@ -66,9 +66,9 @@ export class WebSensors extends Sensors {
         element.addEventListener('wheel', this.onWheel, { capture: true })
         element.addEventListener('keydown', this.onKeyDown, { capture: true })
         element.addEventListener('keyup', this.onKeyUp, { capture: true })
-        element.addEventListener('dragover', this.onPointerMove, { capture: true })
-        element.addEventListener('dragstart', this.onPointerDown, { capture: true })
-        element.addEventListener('dragend', this.onPointerUp, { capture: true })
+        element.addEventListener('dragover', this.onDragOver, { capture: true })
+        element.addEventListener('dragstart', this.onDragStart, { capture: true })
+        element.addEventListener('dragend', this.onDragEnd, { capture: true })
       }
     }
   }
@@ -216,5 +216,34 @@ export class WebSensors extends Sensors {
   protected releasePointerCapture(pointerId: number): boolean {
     this.element?.releasePointerCapture(pointerId)
     return false
+  }
+
+  @transaction @trace(TraceLevel.Suppress)
+  onDragOver(e: DragEvent): void {
+    const path = e.composedPath()
+    this.currentEvent = e
+    this.doDragOver(
+      grabSensorDataList(path, SymSensorData, 'drag', 'dragImportance', this.drag.sensorDataList),
+      0, e.clientX, e.clientY)
+  }
+
+  @transaction @trace(TraceLevel.Suppress)
+  onDragStart(e: DragEvent): void {
+    const path = e.composedPath()
+    this.currentEvent = e
+    this.doDragStart(
+      grabSensorDataList(path, SymSensorData, 'drag', 'dragImportance', this.drag.sensorDataList),
+      grabSensorDataList(path, SymSensorData, 'pointer', 'pointerImportance', this.pointer.sensorDataList),
+      0, e.buttons, e.clientX, e.clientY)
+  }
+
+  @transaction @trace(TraceLevel.Suppress)
+  onDragEnd(e: DragEvent): void {
+    const path = e.composedPath()
+    this.currentEvent = e
+    this.doDragEnd(
+      grabSensorDataList(path, SymSensorData, 'drag', 'dragImportance', this.drag.sensorDataList),
+      grabSensorDataList(path, SymSensorData, 'pointer', 'pointerImportance', this.pointer.sensorDataList),
+      0, e.buttons, e.clientX, e.clientY)
   }
 }

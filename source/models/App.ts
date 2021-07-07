@@ -103,20 +103,30 @@ export class App extends ObservableObject {
   dragActions(): void {
     try {
       const drag = this.sensors.drag
-      drag.revision
-      console.log(this.sensors.currentEvent?.type)
-      if (this.sensors.currentEvent?.type === 'dragstart') {
-        (this.sensors.currentEvent?.target as HTMLElement).classList.add('selected')
+      if (drag.dragstart) {
+        drag.draggingObject.classList.add('selected')
         const action = drag.sensorDataList[0]
         if (action instanceof Function)
           nonreactive(() => action())
       }
-      if (this.sensors.currentEvent?.type === 'dragend') {
-        (this.sensors.currentEvent?.target as HTMLElement).classList.remove('selected')
+      if (drag.dragend) {
+        drag.droppedObject.classList.remove('selected')
         this.swapTasks()
+        this.currentItemID = this.nextItemId
       }
-      if (this.sensors.currentEvent?.type === 'dragover') {
-        this.sensors.preventDefault()
+    } catch (e) {
+      console.error(e)
+    }
+  }
+
+  @reaction
+  @trace(TraceLevel.Suppress)
+  dragOverActions(): void {
+    try {
+      const drag = this.sensors.drag
+      drag.revision
+      if (drag.draggingObject && drag.dragover) {
+        //this.sensors.preventDefault()
         const action = drag.sensorDataList[1]
         if (action instanceof Function)
           nonreactive(() => action())

@@ -1,4 +1,4 @@
-# To-do list
+# Todo list
  A simple todo list app built in HTML, CSS and TypeScript using [reactronic](https://github.com/nezaboodka/reactronic) and [reactronic-front](https://github.com/nezaboodka/reactronic-front).
 
 ## Start

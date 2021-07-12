@@ -253,21 +253,16 @@ export class Sensors implements AbstractSensors {
     const p = this.dragOver
     Sensors.rememberDrag(p, clientX, clientY)
     p.draggingObject = this.dragState.draggingObject
-    this.dragState.draggingObject = p.draggingObject
     p.positionX = this.dragState.draggingStartAtX
     p.positionY = this.dragState.draggingStartAtY
     p.sensorDataList = sensorDataList
-    if (p.draggableObject !== undefined) {
-      if (p.captured && p.draggingObject === undefined && Sensors.isDraggingDistance(p))
-        p.draggingObject = p.draggableObject
-    }
   }
 
   protected doDragStart(sensorDataList: unknown[], buttons: number, clientX: number, clientY: number, target: EventTarget | null): void {
     const p = this.dragStart
     Sensors.rememberDrag(p, clientX, clientY)
     p.sensorDataList = sensorDataList
-    p.captured = false
+    // p.captured = true
     p.draggableObject = undefined
     p.draggingObject = target
     p.draggingStartAtX = p.positionX
@@ -289,8 +284,6 @@ export class Sensors implements AbstractSensors {
       p.droppedAtX = p.positionX
       p.droppedAtY = p.positionY
     }
-    // else if (!Sensors.isDraggingDistance(p))
-    //   p.click = p.down
     p.draggableObject = undefined
     p.draggingModifiers = KeyboardModifiers.None
     p.draggingStartAtX = Infinity

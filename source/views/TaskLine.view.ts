@@ -31,7 +31,7 @@ export function TaskLine(id: string, task: Task, app: App) {
         dragEnd: () => {
           e.classList.remove('selected')
           app.swapTasks()
-          app.currentItemID = app.nextItemId
+          //app.currentItemID = app.nextItemId
         }
       }
 

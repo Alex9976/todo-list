@@ -6,7 +6,7 @@
 // automatically licensed under the license referred above.
 
 import { Sensitivity, sensitive, ToggleRef } from 'reactronic'
-import { Sensor, Keyboard, Pointer, Scroll, PointerButton, KeyboardModifiers, EMPTY_EVENT_DATA_LIST, DragEnd, DragOver, DragStart } from './Sensor'
+import { Sensor, Keyboard, Pointer, Scroll, PointerButton, KeyboardModifiers, EMPTY_EVENT_DATA_LIST, DragEnd, DragOver, DragStart, DragState } from './Sensor'
 import { SensorData, SensorDataPayload, SensorDataImportance } from './SensorData'
 
 export interface AbstractSensors {
@@ -29,6 +29,7 @@ export class Sensors implements AbstractSensors {
   readonly dragStart = new DragStart()
   readonly dragEnd = new DragEnd()
   readonly dragOver = new DragOver()
+  readonly dragState = new DragState()
 
   resetFocus(): void {
     // should be re-defined in derived classes
@@ -251,7 +252,10 @@ export class Sensors implements AbstractSensors {
   protected doDragOver(sensorDataList: unknown[], clientX: number, clientY: number, dataTransfer: DataTransfer | null): void {
     const p = this.dragOver
     Sensors.rememberDrag(p, clientX, clientY)
-    p.draggingObject = dataTransfer?.getData('text/plain')
+    p.draggingObject = this.dragState.draggingObject
+    this.dragState.draggingObject = p.draggingObject
+    p.positionX = this.dragState.draggingStartAtX
+    p.positionY = this.dragState.draggingStartAtY
     p.sensorDataList = sensorDataList
     if (p.draggableObject !== undefined) {
       if (p.captured && p.draggingObject === undefined && Sensors.isDraggingDistance(p))
@@ -259,22 +263,27 @@ export class Sensors implements AbstractSensors {
     }
   }
 
-  protected doDragStart(sensorDataList: unknown[], buttons: number, clientX: number, clientY: number, dataTransfer: DataTransfer | null): void {
+  protected doDragStart(sensorDataList: unknown[], buttons: number, clientX: number, clientY: number, target: EventTarget | null): void {
     const p = this.dragStart
     Sensors.rememberDrag(p, clientX, clientY)
     p.sensorDataList = sensorDataList
     p.captured = false
     p.draggableObject = undefined
-    p.draggingObject = dataTransfer?.getData('text/plain')
+    p.draggingObject = target
     p.draggingStartAtX = p.positionX
     p.draggingStartAtY = p.positionY
     p.draggingModifiers = this.keyboard.modifiers
+    this.dragState.draggingObject = p.draggingObject
+    this.dragState.draggingStartAtX = p.positionX
+    this.dragState.draggingStartAtY = p.positionY
   }
 
-  protected doDragEnd(sensorDataList: unknown[], clientX: number, clientY: number): void {
+  protected doDragEnd(sensorDataList: unknown[], clientX: number, clientY: number, dataTransfer: DataTransfer | null): void {
     const p = this.dragEnd
     Sensors.rememberDrag(p, clientX, clientY)
     p.sensorDataList = sensorDataList
+    //p.draggingObject = dataTransfer?.getData('text/html')
+    p.draggingObject = this.dragState.draggingObject
     if (p.draggingObject !== undefined) {
       p.droppedObject = p.draggingObject
       p.droppedAtX = p.positionX
@@ -283,7 +292,6 @@ export class Sensors implements AbstractSensors {
     // else if (!Sensors.isDraggingDistance(p))
     //   p.click = p.down
     p.draggableObject = undefined
-    p.draggingObject = undefined
     p.draggingModifiers = KeyboardModifiers.None
     p.draggingStartAtX = Infinity
     p.draggingStartAtY = Infinity

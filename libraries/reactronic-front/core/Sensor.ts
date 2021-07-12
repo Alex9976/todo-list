@@ -127,3 +127,20 @@ export class DragOver extends Sensor {
   droppedAtX = Infinity
   droppedAtY = Infinity
 }
+
+export class DragState {
+  static readonly draggingThreshold = 4
+  captured = false
+  positionX = 0
+  positionY = 0
+  previousPositionX = 0
+  previousPositionY = 0
+  draggableObject: any = undefined
+  draggingObject: any = undefined
+  draggingModifiers = KeyboardModifiers.None
+  draggingStartAtX = Infinity
+  draggingStartAtY = Infinity
+  droppedObject: any = undefined
+  droppedAtX = Infinity
+  droppedAtY = Infinity
+}

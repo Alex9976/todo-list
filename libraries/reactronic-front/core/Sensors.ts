@@ -6,7 +6,7 @@
 // automatically licensed under the license referred above.
 
 import { Sensitivity, sensitive, ToggleRef } from 'reactronic'
-import { Sensor, Keyboard, Pointer, Scroll, PointerButton, KeyboardModifiers, EMPTY_EVENT_DATA_LIST, Drag } from './Sensor'
+import { Sensor, Keyboard, Pointer, Scroll, PointerButton, KeyboardModifiers, EMPTY_EVENT_DATA_LIST, DragEnd, DragOver, DragStart } from './Sensor'
 import { SensorData, SensorDataPayload, SensorDataImportance } from './SensorData'
 
 export interface AbstractSensors {
@@ -15,7 +15,9 @@ export interface AbstractSensors {
   readonly keyboard: Readonly<Keyboard>
   readonly pointer: Readonly<Pointer>
   readonly scroll: Readonly<Scroll>
-  readonly drag: Readonly<Drag>
+  readonly dragStart: Readonly<DragStart>
+  readonly dragEnd: Readonly<DragEnd>
+  readonly dragOver: Readonly<DragOver>
 }
 
 export class Sensors implements AbstractSensors {
@@ -24,7 +26,9 @@ export class Sensors implements AbstractSensors {
   readonly keyboard = new Keyboard()
   readonly pointer = new Pointer()
   readonly scroll = new Scroll()
-  readonly drag = new Drag()
+  readonly dragStart = new DragStart()
+  readonly dragEnd = new DragEnd()
+  readonly dragOver = new DragOver()
 
   resetFocus(): void {
     // should be re-defined in derived classes
@@ -75,7 +79,7 @@ export class Sensors implements AbstractSensors {
     p.sensorDataList = sensorDataList
   }
 
-  private static isDraggingDistance(p: Drag): boolean {
+  private static isDraggingDistance(p: DragOver): boolean {
     const distance = Math.max(
       Math.abs(p.positionX - p.draggingStartAtX),
       Math.abs(p.positionY - p.draggingStartAtY))
@@ -198,13 +202,12 @@ export class Sensors implements AbstractSensors {
     p.revision++
   }
 
-  private static rememberDrag(p: Drag, clientX: number, clientY: number): void {
-    p.dragstart = false
-    p.dragend = false
+  private static rememberDrag(p: DragStart | DragEnd | DragOver, clientX: number, clientY: number): void {
     p.previousPositionX = p.positionX
     p.previousPositionY = p.positionY
     p.positionX = clientX
     p.positionY = clientY
+    p.draggingObject = undefined
     p.droppedObject = undefined
     p.droppedAtX = Infinity
     p.droppedAtY = Infinity
@@ -245,9 +248,10 @@ export class Sensors implements AbstractSensors {
     return modifiers
   }
 
-  protected doDragOver(sensorDataList: unknown[], pointerId: number, clientX: number, clientY: number): void {
-    const p = this.drag
+  protected doDragOver(sensorDataList: unknown[], clientX: number, clientY: number, dataTransfer: DataTransfer | null): void {
+    const p = this.dragOver
     Sensors.rememberDrag(p, clientX, clientY)
+    p.draggingObject = dataTransfer?.getData('text/plain')
     p.sensorDataList = sensorDataList
     if (p.draggableObject !== undefined) {
       if (p.captured && p.draggingObject === undefined && Sensors.isDraggingDistance(p))
@@ -256,21 +260,19 @@ export class Sensors implements AbstractSensors {
   }
 
   protected doDragStart(sensorDataList: unknown[], buttons: number, clientX: number, clientY: number, dataTransfer: DataTransfer | null): void {
-    const p = this.drag
+    const p = this.dragStart
     Sensors.rememberDrag(p, clientX, clientY)
     p.sensorDataList = sensorDataList
     p.captured = false
-    p.dragstart = true
-    p.dragover = true
     p.draggableObject = undefined
-    p.draggingObject = document.getElementById(dataTransfer?.getData('text/plain') as string)
+    p.draggingObject = dataTransfer?.getData('text/plain')
     p.draggingStartAtX = p.positionX
     p.draggingStartAtY = p.positionY
     p.draggingModifiers = this.keyboard.modifiers
   }
 
   protected doDragEnd(sensorDataList: unknown[], clientX: number, clientY: number): void {
-    const p = this.drag
+    const p = this.dragEnd
     Sensors.rememberDrag(p, clientX, clientY)
     p.sensorDataList = sensorDataList
     if (p.draggingObject !== undefined) {
@@ -280,8 +282,6 @@ export class Sensors implements AbstractSensors {
     }
     // else if (!Sensors.isDraggingDistance(p))
     //   p.click = p.down
-    p.dragend = true
-    p.dragover = false
     p.draggableObject = undefined
     p.draggingObject = undefined
     p.draggingModifiers = KeyboardModifiers.None

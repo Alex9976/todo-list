@@ -23,9 +23,15 @@ export function TaskLine(id: string, task: Task, app: App) {
       }
 
       e.sensorData = {
-        drag: () => {
+        dragStart: () => {
+          e.classList.add('selected')
           app.currentItemID = app.taskList.indexOf(task)
           app.nextItemId = app.currentItemID
+        },
+        dragEnd: () => {
+          e.classList.remove('selected')
+          app.swapTasks()
+          app.currentItemID = app.nextItemId
         }
       }
 

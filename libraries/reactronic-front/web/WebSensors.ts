@@ -223,8 +223,8 @@ export class WebSensors extends Sensors {
     const path = e.composedPath()
     this.currentEvent = e
     this.doDragOver(
-      grabSensorDataList(path, SymSensorData, 'drag', 'dragImportance', this.drag.sensorDataList),
-      0, e.clientX, e.clientY)
+      grabSensorDataList(path, SymSensorData, 'dragOver', 'dragImportance', this.dragOver.sensorDataList),
+      e.clientX, e.clientY, e.dataTransfer)
   }
 
   @transaction @trace(TraceLevel.Suppress)
@@ -233,16 +233,17 @@ export class WebSensors extends Sensors {
     e.dataTransfer?.setData('text/plain', (e.target as any).id)
     this.currentEvent = e
     this.doDragStart(
-      grabSensorDataList(path, SymSensorData, 'drag', 'dragImportance', this.drag.sensorDataList),
+      grabSensorDataList(path, SymSensorData, 'dragStart', 'dragImportance', this.dragStart.sensorDataList),
       e.buttons, e.clientX, e.clientY, e.dataTransfer)
   }
 
   @transaction @trace(TraceLevel.Suppress)
   onDragEnd(e: DragEvent): void {
     const path = e.composedPath()
+    e.dataTransfer?.clearData()
     this.currentEvent = e
     this.doDragEnd(
-      grabSensorDataList(path, SymSensorData, 'drag', 'dragImportance', this.drag.sensorDataList),
+      grabSensorDataList(path, SymSensorData, 'dragEnd', 'dragImportance', this.dragEnd.sensorDataList),
       e.clientX, e.clientY)
   }
 }

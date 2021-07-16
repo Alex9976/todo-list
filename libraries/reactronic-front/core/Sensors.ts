@@ -155,7 +155,6 @@ export class Sensors implements AbstractSensors {
     const s = this.scroll
     Sensors.rememberPointer(this.pointer, clientX, clientY)
     s.sensorDataList = sensorDataList
-    // this.trackFocus(focus, true)
     s.deltaX = deltaX
     s.deltaY = deltaY
     s.revision++
@@ -262,7 +261,6 @@ export class Sensors implements AbstractSensors {
     const p = this.dragStart
     Sensors.rememberDrag(p, clientX, clientY)
     p.sensorDataList = sensorDataList
-    // p.captured = true
     p.draggableObject = undefined
     p.draggingObject = target
     p.draggingStartAtX = p.positionX
@@ -277,7 +275,6 @@ export class Sensors implements AbstractSensors {
     const p = this.dragEnd
     Sensors.rememberDrag(p, clientX, clientY)
     p.sensorDataList = sensorDataList
-    //p.draggingObject = dataTransfer?.getData('text/html')
     p.draggingObject = this.dragState.draggingObject
     if (p.draggingObject !== undefined) {
       p.droppedObject = p.draggingObject

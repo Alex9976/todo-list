@@ -16,11 +16,6 @@ export interface SensorDataPayload {
   dragStart?: unknown
   dragEnd?: unknown
   dragOver?: unknown
-  // drag?: {
-  //   start?: unknown
-  //   over?: unknown
-  //   end?: unknown
-  // }
 }
 
 export interface SensorDataImportance {

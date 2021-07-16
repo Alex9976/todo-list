@@ -22,16 +22,18 @@ export function TaskLine(id: string, task: Task, app: App) {
         e.classList.remove('move')
       }
 
-      e.ondragstart = () => {
-        e.classList.add('selected')
-        app.currentItemID = app.taskList.indexOf(task)
-        app.nextItemId = app.currentItemID
+      e.sensorData = {
+        dragStart: () => {
+          e.classList.add('selected')
+          app.currentItemID = app.taskList.indexOf(task)
+          app.nextItemId = app.currentItemID
+        },
+        dragEnd: () => {
+          e.classList.remove('selected')
+          app.swapTasks()
+        }
       }
 
-      e.ondragend = () => {
-        e.classList.remove('selected')
-        app.swapTasks()
-      }
 
       if (!task.isEdit) {
         Div('Task-element', e => {

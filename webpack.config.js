@@ -17,9 +17,7 @@ module.exports = {
   resolve: {
     extensions: ['.ts', '.js', '.css'],
     symlinks: false,
-    plugins: [
-      new TsconfigPathsPlugin(),
-    ],
+    plugins: [new TsconfigPathsPlugin()]
   },
 
   output: {

@@ -1,4 +1,4 @@
-import { Div, Img, LI, TextArea, UL } from 'reactronic-front'
+import { Div, Img, LI, RxLI, TextArea, UL } from 'reactronic-front'
 import { style } from './TaskLine.css'
 import { Task } from '../models/Task'
 import { App } from '../models/App'

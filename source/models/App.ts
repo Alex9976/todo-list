@@ -11,7 +11,6 @@ export class App extends ObservableObject {
   @unobservable currentItemID: number
   @unobservable nextItemId: number
   taskList: Task[] = []
-  activePage: Page
 
   constructor(version: string) {
     super()
@@ -21,8 +20,6 @@ export class App extends ObservableObject {
     this.version = version
     this.sensors = new WebSensors()
     this.homePage = new Page('/home', '<img src="assets/home.svg"/>', 'Todo')
-    this.activePage = this.homePage
-    this.activePage.isActive = true
     const saveTasks = JSON.parse(localStorage.getItem('tasks') as string) as Task[]
     if (saveTasks !== null) {
       this.taskList = saveTasks.map(x => {

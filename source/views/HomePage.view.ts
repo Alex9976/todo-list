@@ -52,6 +52,12 @@ export function HomePageView(app: App) {
             }
           }
         }
+
+        RxFragment('List', null, () => {
+          Reactronic.configureCurrentMethod({ trace: TraceLevel.Info })
+          app.sensors.pointer.draggingObject
+          console.log(app.sensors.pointer.positionY)
+        })
       })
 
       Div('Task-input', e => {

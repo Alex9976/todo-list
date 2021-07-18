@@ -1,8 +1,9 @@
-import { Div, Img, RxUL, TextArea } from 'reactronic-front'
+import { Div, Img, PointerButton, RxFragment, RxUL, TextArea } from 'reactronic-front'
 import { PageView } from './Page.view'
 import { style } from './Page.css'
 import { App } from '../models/App'
 import { TaskLine } from './TaskLine.view'
+import { Reactronic, TraceLevel } from 'reactronic'
 
 export function HomePageView(app: App) {
   return (
@@ -12,8 +13,9 @@ export function HomePageView(app: App) {
 
         let index: number = 0
         app.taskList.forEach((element) => {
-          if (element.notCompleted)
+          if (element.notCompleted) {
             TaskLine(index.toString(), element, app)
+          }
           index++
         })
         if (app.completedTasks > 0) {
@@ -29,7 +31,7 @@ export function HomePageView(app: App) {
         })
 
         e.sensorData = {
-          dragOver: () => {
+          pointer: () => {
             const activeElement = e.querySelector('.selected')
             if (activeElement) {
               const currentElement = app.sensors.currentEvent?.target
@@ -50,8 +52,8 @@ export function HomePageView(app: App) {
             }
           }
         }
-
       })
+
       Div('Task-input', e => {
         let inputArea: HTMLTextAreaElement
         e.className = style.class.InputTask

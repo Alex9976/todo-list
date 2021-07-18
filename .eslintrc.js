@@ -41,13 +41,6 @@ module.exports = {
   },
   'overrides': [
     {
-      'files': ['libraries/**'],
-      'rules': {
-        'padding-line-between-statements': 'off',
-        '@typescript-eslint/strict-boolean-expressions': 'off',
-      }
-    },
-    {
       'files': ['**/*.view.ts'],
       'rules': {
         '@typescript-eslint/explicit-function-return-type': 'off',

@@ -50,25 +50,25 @@ export const style = restyler(() => {
     `,
 
     InactiveDelete: css`
-    margin: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    padding: 9px 15px;
-    img {
-        width: 20px;
-        filter: invert(100%);
-      }
-    min-height: 45px;
-    border-radius: 0 3px 3px 0;
-    background-color: rgba(39, 39, 39, 0.5);
-    backdrop-filter: blur(5px);
-    transition: background-color .2s ease;
-    :hover, :focus {
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      padding: 9px 15px;
+      img {
+          width: 20px;
+          filter: invert(100%);
+        }
+      min-height: 45px;
+      border-radius: 0 3px 3px 0;
+      background-color: rgba(39, 39, 39, 0.5);
+      backdrop-filter: blur(5px);
       transition: background-color .2s ease;
-      background-color: rgba(200, 0, 0, 0.5);
-    }
+      :hover, :focus {
+        transition: background-color .2s ease;
+        background-color: rgba(200, 0, 0, 0.5);
+      }
     `,
 
     Task: css`

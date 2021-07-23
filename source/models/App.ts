@@ -1,5 +1,6 @@
 import { nonreactive, ObservableObject, reaction, trace, TraceLevel, transaction, unobservable } from 'reactronic'
-import { KeyboardModifiers, PointerButton, WebSensors } from 'reactronic-front'
+import { DragStage, KeyboardModifiers, PointerButton, WebSensors } from 'reactronic-front'
+import { DraggableTaskLine } from '../views/TaskLine.view'
 import { Page } from './Page'
 import { Task } from './Task'
 
@@ -97,49 +98,6 @@ export class App extends ObservableObject {
 
   @reaction
   @trace(TraceLevel.Suppress)
-  dragStartActions(): void {
-    try {
-      const dragStart = this.sensors.dragStart
-      dragStart.revision
-      const action = dragStart.sensorDataList[0]
-      if (action instanceof Function)
-        nonreactive(() => action())
-    } catch (e) {
-      console.error(e)
-    }
-  }
-
-  @reaction
-  @trace(TraceLevel.Suppress)
-  dragEndActions(): void {
-    try {
-      const dragEnd = this.sensors.dragEnd
-      dragEnd.revision
-      const action = dragEnd.sensorDataList[0]
-      if (action instanceof Function)
-        nonreactive(() => action())
-    } catch (e) {
-      console.error(e)
-    }
-  }
-
-  @reaction
-  @trace(TraceLevel.Suppress)
-  dragOverActions(): void {
-    try {
-      const dragOver = this.sensors.dragOver
-      dragOver.revision
-      //this.sensors.preventDefault()
-      const action = dragOver.sensorDataList[0]
-      if (action instanceof Function)
-        nonreactive(() => action())
-    } catch (e) {
-      console.error(e)
-    }
-  }
-
-  @reaction
-  @trace(TraceLevel.Suppress)
   keyboardActions(): void {
     try {
       const keyboard = this.sensors.keyboard
@@ -154,4 +112,34 @@ export class App extends ObservableObject {
     }
   }
 
+  @reaction
+  protected handleDragAndDrop(): void {
+    const { drag } = this.sensors
+    const stage = drag.stage
+    const target = drag.sensorDataList[0]
+    if (target instanceof DraggableTaskLine) {
+      const { element, task } = target
+      switch (stage) {
+        case DragStage.Started:
+          drag.allowedDragOperations = 'move'
+          element.classList.add('selected')
+          this.currentItemID = this.taskList.indexOf(target.task)
+          this.nextItemId = this.currentItemID
+          break
+        case DragStage.Dragging:
+          if (drag.draggingObject instanceof DraggableTaskLine && drag.draggingObject !== target) {
+            drag.currentOperation = 'move'
+            drag.dropZone()
+          }
+          break
+        case DragStage.Dropped:
+          this.nextItemId = this.taskList.indexOf(task)
+          this.swapTasks()
+          break
+        case DragStage.Finished:
+          element.classList.remove('selected')
+          break
+      }
+    }
+  }
 }

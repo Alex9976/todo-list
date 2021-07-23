@@ -1,17 +1,26 @@
-import { Div, Img, LI, RxLI, TextArea, UL } from 'reactronic-front'
+import { Div, Img, RxLI } from 'reactronic-front'
 import { style } from './TaskLine.css'
 import { Task } from '../models/Task'
 import { App } from '../models/App'
 
+export class DraggableTaskLine {
+  constructor(
+    readonly element: HTMLElement,
+    readonly task: Task
+  ) {}
+}
+
 export function TaskLine(id: string, task: Task, app: App) {
   return (
-    LI('Task' + id, e => {
+    RxLI('Task' + id, task, e => {
       let inputArea: HTMLDivElement
       e.className = style.class.Task
       if (task.notCompleted && !task.isEdit)
         e.draggable = true
       else
         e.draggable = false
+
+      e.sensorData = { drag: new DraggableTaskLine(e, task) }
 
       if (task.notCompleted) {
         e.classList.add('moveable' + id)
@@ -21,19 +30,6 @@ export function TaskLine(id: string, task: Task, app: App) {
         e.classList.remove('moveable' + id)
         e.classList.remove('move')
       }
-
-      e.sensorData = {
-        dragStart: () => {
-          e.classList.add('selected')
-          app.currentItemID = app.taskList.indexOf(task)
-          app.nextItemId = app.currentItemID
-        },
-        dragEnd: () => {
-          e.classList.remove('selected')
-          app.swapTasks()
-        }
-      }
-
 
       if (!task.isEdit) {
         Div('Task-element', e => {
@@ -85,6 +81,5 @@ export function TaskLine(id: string, task: Task, app: App) {
         })
       })
     })
-
   )
 }

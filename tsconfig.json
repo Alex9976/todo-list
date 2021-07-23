@@ -18,9 +18,6 @@
     "noLib": false,
     "baseUrl": ".",
     "paths": {
-      "reactronic-front": [
-        "libraries/reactronic-front/api.ts"
-      ]
     },
     // "rootDir": "source",
     "outDir": "./build/output",
@@ -55,7 +52,6 @@
   },
   "include": [
     "source/**/*.ts",
-    "libraries/**/*.ts",
   ],
   "exclude": [
     "node_modules",

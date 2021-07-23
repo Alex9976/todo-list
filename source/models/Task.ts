@@ -1,4 +1,4 @@
-import { ObservableObject, reaction, transaction, unobservable } from 'reactronic'
+import { ObservableObject, transaction } from 'reactronic'
 
 export class Task extends ObservableObject {
   text: string

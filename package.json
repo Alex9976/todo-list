@@ -10,7 +10,8 @@
   "dependencies": {
     "@emotion/css": "11.1.3",
     "normalize-url": "6.0.1",
-    "reactronic": "0.21.512"
+    "reactronic": "0.21.512",
+    "reactronic-front": "0.21.512"
   },
   "devDependencies": {
     "@types/jsdom": "16.2.11",

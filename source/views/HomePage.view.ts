@@ -27,30 +27,6 @@ export function HomePageView(app: App) {
             TaskLine(index.toString(), element, app)
           index++
         })
-
-        e.sensorData = {
-          dragOver: () => {
-            const activeElement = e.querySelector('.selected')
-            if (activeElement) {
-              const currentElement = app.sensors.currentEvent?.target
-              if (app.sensors.currentEvent?.target === null)
-                return
-              const nextItemId = getNextElementID(currentElement)
-              const nextElement = getNextElement((app.sensors.currentEvent as DragEvent).clientY, currentElement)
-
-              if (nextItemId === app.currentItemID || nextItemId === null) {
-                if (app.nextItemId === app.taskList.length - 1 && nextItemId === null) {
-                  const taskElements = e.querySelectorAll('.move')
-                  e.insertBefore(taskElements[taskElements.length - 1], activeElement)
-                }
-                return
-              }
-              e.insertBefore(activeElement, nextElement)
-              app.nextItemId = nextItemId
-            }
-          }
-        }
-
       })
       Div('Task-input', e => {
         let inputArea: HTMLTextAreaElement
@@ -85,25 +61,4 @@ export function HomePageView(app: App) {
       })
     })
   )
-}
-
-const getNextElementID = (currentElement: any) => {
-  const list = (currentElement.parentNode.classList as DOMTokenList).toString()
-  if (list.includes('moveable')) {
-    const nextId = parseInt(list.substring(list.indexOf('moveable') + 8, list.length))
-    return nextId
-  }
-  else
-    return null
-}
-
-const getNextElement = (cursorPosition: any, currentElement: any) => {
-  const currentElementCoord = currentElement.getBoundingClientRect()
-  const currentElementCenter = currentElementCoord.y + currentElementCoord.height / 2
-
-  const nextElement = (cursorPosition < currentElementCenter) ?
-    currentElement.parentNode :
-    currentElement.parentNode.nextElementSibling
-
-  return nextElement
 }

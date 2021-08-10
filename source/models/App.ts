@@ -1,6 +1,5 @@
 import { nonreactive, ObservableObject, reaction, trace, TraceLevel, transaction, unobservable } from 'reactronic'
-import { DragStage, KeyboardModifiers, PointerButton, WebSensors } from 'reactronic-front'
-import { DraggableTaskLine } from '../views/TaskLine.view'
+import { DragStage, KeyboardModifiers, PointerButton, HtmlSensors } from 'reactronic-front'
 import { Page } from './Page'
 import { Task } from './Task'
 
@@ -8,10 +7,11 @@ export class App extends ObservableObject {
   @unobservable readonly version: string
   @unobservable readonly homePage: Page
   @unobservable completedTasks: number
-  @unobservable sensors: WebSensors
+  @unobservable sensors: HtmlSensors
   @unobservable currentItemID: number
   @unobservable nextItemId: number
   taskList: Task[] = []
+  draggingTask: Task | undefined
 
   constructor(version: string) {
     super()
@@ -19,8 +19,9 @@ export class App extends ObservableObject {
     this.currentItemID = 0
     this.nextItemId = 0
     this.version = version
-    this.sensors = new WebSensors()
+    this.sensors = new HtmlSensors()
     this.homePage = new Page('/home', '<img src="assets/home.svg"/>', 'Todo')
+    this.draggingTask = undefined
     const saveTasks = JSON.parse(localStorage.getItem('tasks') as string) as Task[]
     if (saveTasks !== null) {
       this.taskList = saveTasks.map(x => {
@@ -87,7 +88,7 @@ export class App extends ObservableObject {
     try {
       const pointer = this.sensors.pointer
       if (pointer.click === PointerButton.Left) {
-        const action = pointer.sensorDataList[0]
+        const action = pointer.associatedDataList[0]
         if (action instanceof Function)
           nonreactive(() => action())
       }
@@ -102,7 +103,7 @@ export class App extends ObservableObject {
     try {
       const keyboard = this.sensors.keyboard
       if ((keyboard.down === 'Enter') && (keyboard.modifiers !== KeyboardModifiers.Shift)) {
-        const action = keyboard.sensorDataList[0]
+        const action = keyboard.associatedDataList[0]
         if (action instanceof Function)
           nonreactive(() => action())
         this.sensors.preventDefault()
@@ -116,20 +117,19 @@ export class App extends ObservableObject {
   protected handleDragAndDrop(): void {
     const { drag } = this.sensors
     const stage = drag.stage
-    const target = drag.sensorDataList[0]
-    if (target instanceof DraggableTaskLine) {
-      const { element, task } = target
+    const task = drag.associatedDataList[0]
+    if (task instanceof Task) {
       switch (stage) {
         case DragStage.Started:
-          drag.allowedDragOperations = 'move'
-          element.classList.add('selected')
-          this.currentItemID = this.taskList.indexOf(target.task)
+          this.draggingTask = task
+          drag.allowedCursor = 'copy'
+          this.currentItemID = this.taskList.indexOf(task)
           this.nextItemId = this.currentItemID
           break
         case DragStage.Dragging:
-          if (drag.draggingObject instanceof DraggableTaskLine && drag.draggingObject !== target) {
-            drag.currentOperation = 'move'
-            drag.dropZone()
+          if (drag.draggingObject instanceof Task && drag.draggingObject !== task) {
+            drag.cursor = 'copy'
+            drag.allowDropHere()
           }
           break
         case DragStage.Dropped:
@@ -137,7 +137,7 @@ export class App extends ObservableObject {
           this.swapTasks()
           break
         case DragStage.Finished:
-          element.classList.remove('selected')
+          this.draggingTask = undefined
           break
       }
     }

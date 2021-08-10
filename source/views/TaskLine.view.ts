@@ -3,24 +3,15 @@ import { style } from './TaskLine.css'
 import { Task } from '../models/Task'
 import { App } from '../models/App'
 
-export class DraggableTaskLine {
-  constructor(
-    readonly element: HTMLElement,
-    readonly task: Task
-  ) {}
-}
-
 export function TaskLine(id: string, task: Task, app: App) {
   return (
     RxLI('Task' + id, task, e => {
       let inputArea: HTMLDivElement
       e.className = style.class.Task
-      if (task.notCompleted && !task.isEdit)
-        e.draggable = true
-      else
-        e.draggable = false
 
-      e.sensorData = { drag: new DraggableTaskLine(e, task) }
+      e.associatedData.drag = task.notCompleted && !task.isEdit ? task : undefined
+
+      e.classList.toggle('selected', app.draggingTask === task)
 
       if (task.notCompleted) {
         e.classList.add('moveable' + id)
@@ -33,9 +24,7 @@ export function TaskLine(id: string, task: Task, app: App) {
 
       if (!task.isEdit) {
         Div('Task-element', e => {
-          e.sensorData = {
-            pointer: () => { task.changeActivity() }
-          }
+          e.associatedData.pointer = () => task.changeActivity()
           e.className = task.notCompleted ? style.class.TaskElement : style.class.InactiveTaskElement
           e.innerHTML = task.text
         })
@@ -44,11 +33,9 @@ export function TaskLine(id: string, task: Task, app: App) {
         Div('Task', e => {
           inputArea = e
           inputArea.contentEditable = 'true'
-          inputArea.sensorData = {
-            keyboard: () => {
-              if (inputArea.innerHTML.trim() !== '') {
-                app.editTask(task, inputArea.innerHTML)
-              }
+          inputArea.associatedData.keyboard = () => {
+            if (inputArea.innerHTML.trim() !== '') {
+              app.editTask(task, inputArea.innerHTML)
             }
           }
           e.innerHTML = task.text
@@ -57,14 +44,7 @@ export function TaskLine(id: string, task: Task, app: App) {
       }
       if (task.notCompleted) {
         Div('Edit', e => {
-          e.sensorData = {
-            pointer: () => {
-              if (task.isEdit)
-                app.editTask(task, inputArea.innerHTML)
-              else
-                app.editTask(task)
-            }
-          }
+          e.associatedData.pointer = () => task.isEdit ? app.editTask(task, inputArea.innerHTML) : app.editTask(task)
           e.className = style.class.Edit
           Img('Edit-icon', e => {
             e.src = task.isEdit ? './assets/check.svg' : './assets/pencil.svg'
@@ -72,9 +52,7 @@ export function TaskLine(id: string, task: Task, app: App) {
         })
       }
       Div('Delete', e => {
-        e.sensorData = {
-          pointer: () => { app.deleteTask(task) }
-        }
+        e.associatedData.pointer = () => { app.deleteTask(task) }
         e.className = task.notCompleted ? style.class.Delete : style.class.InactiveDelete
         Img('Delete-icon', e => {
           e.src = './assets/trash.svg'

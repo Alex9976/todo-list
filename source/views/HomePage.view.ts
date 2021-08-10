@@ -35,23 +35,19 @@ export function HomePageView(app: App) {
           inputArea = e
           e.placeholder = 'Enter the task'
           e.className = style.class.Input
-          inputArea.sensorData = {
-            keyboard: () => {
-              if (inputArea.value.trim() != '') {
-                app.addTask(inputArea.value)
-              }
-              inputArea.value = ''
+          inputArea.associatedData.keyboard = () => {
+            if (inputArea.value.trim() != '') {
+              app.addTask(inputArea.value)
             }
+            inputArea.value = ''
           }
         })
         Div('Submit', e => {
-          e.sensorData = {
-            pointer: () => {
-              if (inputArea.value.trim() != '') {
-                app.addTask(inputArea.value)
-                inputArea.value = ''
-              }
-            },
+          e.associatedData.pointer = () => {
+            if (inputArea.value.trim() != '') {
+              app.addTask(inputArea.value)
+              inputArea.value = ''
+            }
           }
           e.className = style.class.Submit
           Img('Add-icon', e => {

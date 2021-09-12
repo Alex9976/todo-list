@@ -38,7 +38,7 @@ export class App extends ObservableObject {
     return inputString
   }
 
-  @transaction
+  //@transaction
   swapTasks(): void {
     if (this.currentItemID !== this.nextItemId) {
       this.taskList = this.taskList.toMutable()

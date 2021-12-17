@@ -35,7 +35,7 @@ export function HomePageView(app: App) {
           inputArea = e
           e.placeholder = 'Enter the task'
           e.className = style.class.Input
-          inputArea.associatedData.keyboard = () => {
+          inputArea.dataForSensor.keyboard = () => {
             if (inputArea.value.trim() != '') {
               app.addTask(inputArea.value)
             }
@@ -43,7 +43,7 @@ export function HomePageView(app: App) {
           }
         })
         Div('Submit', e => {
-          e.associatedData.pointer = () => {
+          e.dataForSensor.click = () => {
             if (inputArea.value.trim() != '') {
               app.addTask(inputArea.value)
               inputArea.value = ''

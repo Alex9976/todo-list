@@ -1,14 +1,18 @@
-import { Reactronic, TraceLevel } from 'reactronic'
-import { trace, HtmlRtti } from 'reactronic-front'
+//--------------------------------------------------------------------------------------------------
+// Copyright © Nezaboodka™ Software LLC. All rights reserved.
+// Licensed under the Apache License, Version 2.0.
+//--------------------------------------------------------------------------------------------------
+
+import { Rx, TraceLevel } from 'reactronic'
+import { HtmlRtti } from 'reactronic-front'
 
 export function configureDebugging(): void {
   HtmlRtti.isDebugAttributeEnabled = false // rdbg attribute in HTML elements
-  Reactronic.setTraceMode(true, TraceLevel.Error)
-  Reactronic.setProfilingMode(false, {
-    asyncActionDurationWarningThreshold: Number.MAX_SAFE_INTEGER,
+  Rx.setTraceMode(true, TraceLevel.ErrorsOnly)
+  Rx.setProfilingMode(false, {
+    repetitiveUsageWarningThreshold: Number.MAX_SAFE_INTEGER,
     mainThreadBlockingWarningThreshold: 5,
-    //repetitiveReadWarningThreshold: Number.MAX_SAFE_INTEGER, ???
+    asyncActionDurationWarningThreshold: Number.MAX_SAFE_INTEGER,
     garbageCollectionSummaryInterval: Number.MAX_SAFE_INTEGER,
   })
-  trace(false, 'r', 'SetPropValues')
 }

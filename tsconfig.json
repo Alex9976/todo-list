@@ -16,9 +16,7 @@
     ],
     "noEmit": false,
     "noLib": false,
-    "baseUrl": ".",
-    "paths": {
-    },
+    "baseUrl": "source",
     // "rootDir": "source",
     "outDir": "./build/output",
     "declarationDir": "./build/output",
@@ -39,6 +37,8 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "jsx": "react",
+    "paths": {
+    },
     "plugins": [
       {
         "name": "typescript-styled-plugin",
@@ -51,7 +51,7 @@
     ]
   },
   "include": [
-    "source/**/*.ts",
+    "source/**/*.ts"
   ],
   "exclude": [
     "node_modules",

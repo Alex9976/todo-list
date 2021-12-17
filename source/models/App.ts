@@ -1,5 +1,5 @@
-import { nonreactive, ObservableObject, reaction, trace, TraceLevel, transaction, unobservable } from 'reactronic'
-import { DragStage, KeyboardModifiers, PointerButton, HtmlSensors } from 'reactronic-front'
+import { nonreactive, ObservableObject, options, reaction, TraceLevel, transaction, unobservable } from 'reactronic'
+import { KeyboardModifiers, PointerButton, HtmlSensors } from 'reactronic-front'
 import { Page } from './Page'
 import { Task } from './Task'
 
@@ -11,7 +11,6 @@ export class App extends ObservableObject {
   @unobservable currentItemID: number
   @unobservable nextItemId: number
   taskList: Task[] = []
-  draggingTask: Task | undefined
 
   constructor(version: string) {
     super()
@@ -21,7 +20,6 @@ export class App extends ObservableObject {
     this.version = version
     this.sensors = new HtmlSensors()
     this.homePage = new Page('/home', '<img src="assets/home.svg"/>', 'Todo')
-    this.draggingTask = undefined
     const saveTasks = JSON.parse(localStorage.getItem('tasks') as string) as Task[]
     if (saveTasks !== null) {
       this.taskList = saveTasks.map(x => {
@@ -82,13 +80,12 @@ export class App extends ObservableObject {
     localStorage.setItem('tasks', JSON.stringify(this.taskList))
   }
 
-  @reaction
-  @trace(TraceLevel.Suppress)
+  @reaction @options({ trace: TraceLevel.Silent })
   pointerActions(): void {
     try {
       const pointer = this.sensors.pointer
-      if (pointer.click === PointerButton.Left) {
-        const action = pointer.associatedDataList[0]
+      if (pointer.clicked !== undefined) {
+        const action = pointer.clicked
         if (action instanceof Function)
           nonreactive(() => action())
       }
@@ -97,16 +94,15 @@ export class App extends ObservableObject {
     }
   }
 
-  @reaction
-  @trace(TraceLevel.Suppress)
+  @reaction @options({ trace: TraceLevel.Silent })
   keyboardActions(): void {
     try {
       const keyboard = this.sensors.keyboard
       if ((keyboard.down === 'Enter') && (keyboard.modifiers !== KeyboardModifiers.Shift)) {
-        const action = keyboard.associatedDataList[0]
+        const action = keyboard.elementDataList[0]
         if (action instanceof Function)
           nonreactive(() => action())
-        this.sensors.preventDefault()
+        this.sensors.keyboard.preventDefault = true
       }
     } catch (e) {
       console.error(e)
@@ -115,30 +111,29 @@ export class App extends ObservableObject {
 
   @reaction
   protected handleDragAndDrop(): void {
-    const { drag } = this.sensors
-    const stage = drag.stage
-    const task = drag.associatedDataList[0]
-    if (task instanceof Task) {
-      switch (stage) {
-        case DragStage.Started:
-          this.draggingTask = task
-          drag.allowedCursor = 'copy'
-          this.currentItemID = this.taskList.indexOf(task)
-          this.nextItemId = this.currentItemID
-          break
-        case DragStage.Dragging:
-          if (drag.draggingObject instanceof Task && drag.draggingObject !== task) {
-            drag.cursor = 'copy'
-            drag.allowDropHere()
+    const drag = this.sensors.htmlDrag
+    const task = drag.draggable as Task | undefined
+    if (task) {
+      if (drag.dragStarted) {
+        drag.effectAllowed = 'copy'
+        if (drag.draggingOver) {
+          if (drag.dragTarget instanceof Task) {
+            drag.dropAllowed = true
+            drag.dropEffect = 'copy'
           }
-          break
-        case DragStage.Dropped:
-          this.nextItemId = this.taskList.indexOf(task)
-          this.swapTasks()
-          break
-        case DragStage.Finished:
-          this.draggingTask = undefined
-          break
+          else {
+            drag.dropAllowed = false
+          }
+        }
+      }
+      if (drag.dragFinished) {
+        if (drag.dropped) {
+          if (drag.dragTarget instanceof Task) {
+            this.currentItemID = this.taskList.indexOf(task)
+            this.nextItemId = this.taskList.indexOf(drag.dragTarget as Task)
+            this.swapTasks()
+          }
+        }
       }
     }
   }

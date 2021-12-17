@@ -1,16 +1,22 @@
+//--------------------------------------------------------------------------------------------------
+// Copyright © Nezaboodka™ Software LLC. All rights reserved.
+// Licensed under the Apache License, Version 2.0.
+//--------------------------------------------------------------------------------------------------
+
 import { Transaction } from 'reactronic'
+import { HtmlBody, RxDom } from 'reactronic-front'
 import { configureDebugging } from './debugging'
-import { Globals } from './models/Globals'
 import { App } from './models/App'
 import { AppWindow } from './views/AppWindow.view'
-import { renderChildrenNow } from 'reactronic-front'
 
 const version: string = '$BUILD_TIMESTAMP'
 
 configureDebugging()
 
-document.body.onresize = () => Globals.Resizing.pulse(-1)
-
 const app = Transaction.run(() => new App(version))
 
-AppWindow(app)
+RxDom.Root(() => {
+  HtmlBody('html > body', null, () => {
+    AppWindow(app)
+  })
+})

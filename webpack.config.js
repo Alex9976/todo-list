@@ -7,21 +7,27 @@ const ESLintPlugin = require('eslint-webpack-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
 const FilterWarningsPlugin = require('webpack-filter-warnings-plugin')
 
+const sourceDir = path.resolve(__dirname, 'source')
+const appPath = path.resolve(sourceDir, 'index.ts')
+const outputDir = path.resolve(__dirname, 'public')
+
 module.exports = {
   devtool: process.env.NODE_ENV === 'development' ? 'source-map' : undefined, // enable sourcemaps for debugging webpack output
   mode: process.env.NODE_ENV || 'development',
   entry: {
-    app: [path.resolve(__dirname, 'source', 'index.ts')],
+    app: [appPath],
   },
 
   resolve: {
     extensions: ['.ts', '.js', '.css'],
     symlinks: false,
-    plugins: [new TsconfigPathsPlugin()]
+    plugins: [
+      new TsconfigPathsPlugin(),
+    ],
   },
 
   output: {
-    path: path.resolve(__dirname, 'public'),
+    path: outputDir,
     filename: '[name].js',
   },
 
@@ -157,5 +163,18 @@ module.exports = {
     chunkOrigins: false,
     // Add messages from child loaders
     children: false,
+  },
+
+  devServer: {
+    host: 'localhost',
+    port: 3333,
+    static: {
+      directory: sourceDir
+    },
+    historyApiFallback: {
+      index: "/"
+    },
+    hot: true,
+    liveReload: false,
   },
 }

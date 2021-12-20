@@ -1,10 +1,5 @@
-//--------------------------------------------------------------------------------------------------
-// Copyright © Nezaboodka™ Software LLC. All rights reserved.
-// Licensed under the Apache License, Version 2.0.
-//--------------------------------------------------------------------------------------------------
-
 import { Transaction } from 'reactronic'
-import { HtmlBody, RxDom } from 'reactronic-front'
+import { HtmlBody, RxDom } from 'reactronic-dom'
 import { configureDebugging } from './debugging'
 import { App } from './models/App'
 import { AppWindow } from './views/AppWindow.view'

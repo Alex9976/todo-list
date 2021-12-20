@@ -1,5 +1,5 @@
 import { css } from '@emotion/css'
-import { restyler } from 'reactronic-front'
+import { restyler } from 'reactronic-dom'
 import { themes } from './Themes'
 
 export const style = restyler(() => {

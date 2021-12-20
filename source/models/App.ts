@@ -1,5 +1,5 @@
 import { nonreactive, ObservableObject, options, reaction, TraceLevel, transaction, unobservable } from 'reactronic'
-import { KeyboardModifiers, PointerButton, HtmlSensors } from 'reactronic-front'
+import { KeyboardModifiers, PointerButton, HtmlSensors } from 'reactronic-dom'
 import { Page } from './Page'
 import { Task } from './Task'
 

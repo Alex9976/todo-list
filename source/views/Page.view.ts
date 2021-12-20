@@ -1,4 +1,4 @@
-import { Customize, Div, Render } from 'reactronic-front'
+import { Customize, Div, Render } from 'reactronic-dom'
 import { Page } from '../models/Page'
 
 export function PageView(page: Page, contentRenderer?: Customize<HTMLElement>, rightSideRenderer?: Customize<HTMLElement>) {

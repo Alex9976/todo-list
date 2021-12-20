@@ -1,4 +1,4 @@
-import { Div, Img, RxUL, TextArea } from 'reactronic-front'
+import { Div, Img, RxUL, TextArea } from 'reactronic-dom'
 import { PageView } from './Page.view'
 import { style } from './Page.css'
 import { App } from '../models/App'

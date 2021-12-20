@@ -1,4 +1,4 @@
-import { Div, Img, RxLI } from 'reactronic-front'
+import { Div, Img, RxLI } from 'reactronic-dom'
 import { style } from './TaskLine.css'
 import { Task } from '../models/Task'
 import { App } from '../models/App'

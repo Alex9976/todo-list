@@ -26,8 +26,8 @@
     "markdown-it-prism": "2.2.1",
     "normalize-url": "6.1.0",
     "prismjs": "1.25.0",
-    "reactronic": "0.21.529",
-    "reactronic-front": "0.21.529"
+    "reactronic": "0.21.601",
+    "reactronic-dom": "0.21.601"
   },
   "devDependencies": {
     "@types/jsdom": "16.2.13",

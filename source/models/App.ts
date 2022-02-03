@@ -1,4 +1,4 @@
-import { nonreactive, ObservableObject, options, reaction, TraceLevel, transaction, unobservable } from 'reactronic'
+import { LoggingLevel, nonreactive, ObservableObject, options, reaction, transaction, unobservable } from 'reactronic'
 import { KeyboardModifiers, PointerButton, HtmlSensors } from 'reactronic-dom'
 import { Page } from './Page'
 import { Task } from './Task'
@@ -80,7 +80,7 @@ export class App extends ObservableObject {
     localStorage.setItem('tasks', JSON.stringify(this.taskList))
   }
 
-  @reaction @options({ trace: TraceLevel.Silent })
+  @reaction @options({ logging: LoggingLevel.Off })
   pointerActions(): void {
     try {
       const pointer = this.sensors.pointer
@@ -94,7 +94,7 @@ export class App extends ObservableObject {
     }
   }
 
-  @reaction @options({ trace: TraceLevel.Silent })
+  @reaction @options({ logging: LoggingLevel.Off })
   keyboardActions(): void {
     try {
       const keyboard = this.sensors.keyboard

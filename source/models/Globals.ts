@@ -17,6 +17,6 @@ export class Resizing extends ObservableObject {
 }
 
 export class Globals {
-  static readonly Loading = Monitor.create('Loading', 1000, 250)
-  static readonly Resizing = Transaction.run(() => new Resizing())
+  static readonly Loading = Monitor.create('Loading', 1000, 250, 1)
+  static readonly Resizing = Transaction.run(null, () => new Resizing())
 }

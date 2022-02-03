@@ -1,5 +1,5 @@
 import { Transaction } from 'reactronic'
-import { HtmlBody, RxDom } from 'reactronic-dom'
+import { RxHtmlBody, RxNode } from 'reactronic-dom'
 import { configureDebugging } from './debugging'
 import { App } from './models/App'
 import { AppWindow } from './views/AppWindow.view'
@@ -8,10 +8,11 @@ const version: string = '$BUILD_TIMESTAMP'
 
 configureDebugging()
 
-const app = Transaction.run(() => new App(version))
+const app = Transaction.run(null, () => new App(version))
 
-RxDom.Root(() => {
-  HtmlBody('html > body', null, () => {
+RxNode.launch(() => {
+  RxHtmlBody('html > body', null, () => {
     AppWindow(app)
   })
 })
+

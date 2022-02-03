@@ -33,6 +33,6 @@ export class Themes extends ObservableObject {
   }
 }
 
-export const themes = Transaction.run(() => {
+export const themes = Transaction.run(null, () => {
   return new Themes(new DarkBlueTheme())
 })

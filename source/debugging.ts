@@ -1,7 +1,7 @@
-import { Rx, TraceLevel } from 'reactronic'
+import { LoggingLevel, Rx } from 'reactronic'
 
 export function configureDebugging(): void {
-  Rx.setTraceMode(true, TraceLevel.ErrorsOnly)
+  Rx.setLoggingMode(true, LoggingLevel.ErrorsOnly)
   Rx.setProfilingMode(false, {
     repetitiveUsageWarningThreshold: Number.MAX_SAFE_INTEGER,
     mainThreadBlockingWarningThreshold: 5,

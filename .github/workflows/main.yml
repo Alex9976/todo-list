@@ -40,7 +40,7 @@ jobs:
         run: npm run publish
 
       - name: Copy Data
-        run: cp -a dist/. public/ && cp -a source/assets/. public/source/assets/
+        run: cp -a dist/. public/ && mkdir -p public/source/assets/ && cp -a source/assets/. public/source/assets/
 
       - name: Push
         uses: s0/git-publish-subdir-action@develop

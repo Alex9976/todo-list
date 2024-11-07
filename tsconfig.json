@@ -2,25 +2,23 @@
   "compilerOptions": {
     // General
     "pretty": true,
-    "watch": false,
     "listFiles": false,
     "inlineSources": false,
     "removeComments": false, // keep comments to make tests coverage working
     // Targets & outputs
-    "target": "es6",
-    "module": "es6",
-    "moduleResolution": "node",
-    "lib": [
-      "es2016",
-      "dom"
-    ],
+    "target": "ES2016",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "lib": ["ES2016", "dom"],
     "noEmit": false,
     "noLib": false,
     "baseUrl": "source",
     // "rootDir": "source",
-    "outDir": "./build/output",
-    "declarationDir": "./build/output",
+    "outDir": "./output",
+    "declarationDir": "./output",
     "declaration": true,
+    "isolatedModules": true,
+    "esModuleInterop": true,
     // Debugging
     "sourceMap": true,
     "inlineSourceMap": false,
@@ -32,13 +30,11 @@
     "noImplicitThis": true,
     "noImplicitReturns": true,
     "noUnusedLocals": false,
-    "suppressImplicitAnyIndexErrors": true, // this allows access to any property on objects via bracket notation
     // Other
-    "emitDecoratorMetadata": true,
+    "emitDecoratorMetadata": false,
     "experimentalDecorators": true,
     "jsx": "react",
-    "paths": {
-    },
+    "forceConsistentCasingInFileNames": true,
     "plugins": [
       {
         "name": "typescript-styled-plugin",
@@ -51,7 +47,8 @@
     ]
   },
   "include": [
-    "source/**/*.ts"
+    "./jest.config.ts",
+    "source/**/*.ts",
   ],
   "exclude": [
     "node_modules",

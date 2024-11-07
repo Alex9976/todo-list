@@ -1,4 +1,4 @@
-import { ObservableObject, transaction } from 'reactronic'
+import { ObservableObject, transactional } from 'reactronic'
 
 export class Task extends ObservableObject {
   text: string
@@ -12,8 +12,9 @@ export class Task extends ObservableObject {
     this.isEdit = false
   }
 
-  @transaction
+  @transactional
   changeActivity(): void {
-    this.notCompleted = !this.notCompleted
+    if (!this.isEdit)
+      this.notCompleted = !this.notCompleted
   }
 }

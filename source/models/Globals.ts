@@ -1,4 +1,4 @@
-import { ObservableObject, Transaction, Monitor, transaction } from 'reactronic'
+import { ObservableObject, Transaction, Monitor, transactional } from 'reactronic'
 
 export class Resizing extends ObservableObject {
   timestamp: number = 0
@@ -10,7 +10,7 @@ export class Resizing extends ObservableObject {
       this.doPulse()
   }
 
-  @transaction
+  @transactional
   protected doPulse(): void {
     this.timestamp++
   }

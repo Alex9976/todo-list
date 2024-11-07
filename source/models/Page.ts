@@ -1,10 +1,10 @@
-import { ObservableObject, unobservable } from 'reactronic'
+import { ObservableObject, raw } from 'reactronic'
 
 export class Page extends ObservableObject {
-  @unobservable readonly link: string
-  @unobservable readonly hashLink: string
-  @unobservable readonly linkTitle: string
-  @unobservable readonly title: string
+  @raw readonly link: string
+  @raw readonly hashLink: string
+  @raw readonly linkTitle: string
+  @raw readonly title: string
   content: string
   isActive: boolean
 

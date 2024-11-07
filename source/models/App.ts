@@ -1,15 +1,15 @@
-import { LoggingLevel, nonreactive, ObservableObject, options, reaction, transaction, unobservable } from 'reactronic'
-import { KeyboardModifiers, PointerButton, HtmlSensors } from 'reactronic-dom'
-import { Page } from './Page'
-import { Task } from './Task'
+import { LoggingLevel, nonreactive, ObservableObject, options, reactive, transactional, raw } from 'reactronic'
+import { KeyboardModifiers, PointerButton, HtmlSensors } from 'verstak'
+import { Page } from './Page.js'
+import { Task } from './Task.js'
 
 export class App extends ObservableObject {
-  @unobservable readonly version: string
-  @unobservable readonly homePage: Page
-  @unobservable completedTasks: number
-  @unobservable sensors: HtmlSensors
-  @unobservable currentItemID: number
-  @unobservable nextItemId: number
+  @raw readonly version: string
+  @raw readonly homePage: Page
+  @raw completedTasks: number
+  @raw sensors: HtmlSensors
+  @raw currentItemID: number
+  @raw nextItemId: number
   taskList: Task[] = []
 
   constructor(version: string) {
@@ -49,19 +49,19 @@ export class App extends ObservableObject {
     }
   }
 
-  @transaction
+  @transactional
   addTask(text: string): void {
     this.taskList = this.taskList.toMutable()
     this.taskList.push(new Task(this.convertLineBreaks(text)))
   }
 
-  @transaction
+  @transactional
   deleteTask(task: Task): void {
     this.taskList = this.taskList.toMutable()
     this.taskList.splice(this.taskList.indexOf(task), 1)
   }
 
-  @transaction
+  @transactional
   editTask(task: Task, newText?: string): void {
     if (task.isEdit) {
       if (newText != null) {
@@ -74,13 +74,13 @@ export class App extends ObservableObject {
     }
   }
 
-  @reaction
+  @reactive
   updateTasks(): void {
     this.completedTasks = this.taskList.filter(x => !x.notCompleted).length
     localStorage.setItem('tasks', JSON.stringify(this.taskList))
   }
 
-  @reaction @options({ logging: LoggingLevel.Off })
+  @reactive @options({ logging: LoggingLevel.Off })
   pointerActions(): void {
     try {
       const pointer = this.sensors.pointer
@@ -94,7 +94,7 @@ export class App extends ObservableObject {
     }
   }
 
-  @reaction @options({ logging: LoggingLevel.Off })
+  @reactive @options({ logging: LoggingLevel.Off })
   keyboardActions(): void {
     try {
       const keyboard = this.sensors.keyboard
@@ -109,7 +109,7 @@ export class App extends ObservableObject {
     }
   }
 
-  @reaction
+  @reactive
   protected handleDragAndDrop(): void {
     const drag = this.sensors.htmlDrag
     const task = drag.draggable as Task | undefined

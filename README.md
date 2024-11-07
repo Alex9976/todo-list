@@ -1,5 +1,6 @@
 # Todo list
- A simple todo list app built in HTML, CSS and TypeScript using [reactronic](https://github.com/nezaboodka/reactronic) and [reactronic-dom](https://github.com/nezaboodka/reactronic-dom).
+
+ A simple todo list app built in HTML, CSS and TypeScript using [reactronic](https://github.com/nezaboodka/reactronic) and [verstak](https://github.com/nezaboodka/verstak).
 
 ## Features
 
@@ -21,7 +22,6 @@ npm run start
 ```
 
 Visit [http://localhost:3333/](http://localhost:3333/)
-
 
 ## Demo
 

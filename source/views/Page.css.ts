@@ -1,5 +1,5 @@
 import { css } from '@emotion/css'
-import { restyler } from 'reactronic-dom'
+import { restyler } from 'verstak'
 
 export const style = restyler(() => {
   return {
@@ -18,7 +18,7 @@ export const style = restyler(() => {
     Input: css`
       margin: 0;
       width: calc(100vw - 100px);
-      height: 45px;
+      height: 49px;
       color: #fff;
       font-size: 24px;
       font-family: Calibri, Tahoma, Arial, sans-serif;

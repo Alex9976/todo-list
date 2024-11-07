@@ -41,6 +41,7 @@ jobs:
 
       - name: Copy Data
         run: cp -a dist/. public/
+        run: cp -a source/assets/. public/source/assets/
 
       - name: Push
         uses: s0/git-publish-subdir-action@develop

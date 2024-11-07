@@ -11,11 +11,11 @@ on:
       - 'source/**'
 
   workflow_dispatch:
-  
+
 jobs:
   build:
     runs-on: ubuntu-latest
-    
+
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
@@ -23,27 +23,30 @@ jobs:
           node-version: '14'
       - run: npm install
       - run: npm run publish
-      
+
   deploy:
       runs-on: ubuntu-latest
-  
+
       steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
           node-version: '14'
-          
+
       - name: Install all dependencies
         run: npm install
-      
+
       - name: Publish
         run: npm run publish
-      
+
+      - name: Copy Data
+        run: cp -a dist/. public/
+
       - name: Push
         uses: s0/git-publish-subdir-action@develop
         env:
           REPO: self
-          BRANCH: pages 
+          BRANCH: pages
           FOLDER: public
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          MESSAGE: "Build: ({sha}) {msg}" 
+          MESSAGE: "Build: ({sha}) {msg}"

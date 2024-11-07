@@ -1,4 +1,12 @@
-<!doctype html><html><head><title>Todo</title><meta charset="utf-8"><meta name="viewport" content="width=device-width,shrink-to-fit=yes"><link rel="shortcut icon" href="assets/logo.png"><style>/* RESET */
+<!doctype html>
+<html lang="en">
+
+<head>
+  <title>Todo</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=1920, shrink-to-fit=yes">
+  <style>
+    /* RESET */
     html,
     body,
     div,
@@ -34,8 +42,6 @@
     small,
     strike,
     strong,
-    sub,
-    sup,
     tt,
     var,
     b,
@@ -86,8 +92,20 @@
       vertical-align: baseline;
     }
 
-    * {
-      box-sizing: border-box;
+    sup {
+      margin: 0;
+      padding: 0;
+      border: 0;
+      font-size: smaller;
+      vertical-align: top;
+    }
+
+    sub {
+      margin: 0;
+      padding: 0;
+      border: 0;
+      font-size: smaller;
+      vertical-align: bottom;
     }
 
     /* HTML5 display-role reset for older browsers */
@@ -155,122 +173,281 @@
       border: 0;
     }
 
+    /* ICONS */
+
+    .nzu {
+      /* font-family: 'Arial'; */
+      font-style: normal;
+      font-weight: 100;
+      font-variant: normal;
+      text-transform: none;
+      line-height: 1;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .nzu-format:before {
+      content: '𝔽.';
+    }
+
+    .nzu-alignment-top-left:before {
+      content: '╒';
+    }
+
+    .nzu-alignment-top-right:before {
+      content: '╕';
+    }
+
+    .nzu-alignment-top-center:before {
+      content: '╤';
+    }
+
+    .nzu-alignment-top-justify:before {
+      content: '═';
+      transform: rotate(-90deg);
+    }
+
+    .nzu-alignment-middle-left:before {
+      content: '╞';
+    }
+
+    .nzu-alignment-middle-right:before {
+      content: '╡'
+    }
+
+    .nzu-alignment-middle-center:before {
+      content: '╪'
+    }
+
+    .nzu-alignment-middle-justify:before {
+      content: '═'
+    }
+
+    .nzu-alignment-bottom-left:before {
+      content: '╘';
+    }
+
+    .nzu-alignment-bottom-right:before {
+      content: '╛'
+    }
+
+    .nzu-alignment-bottom-center:before {
+      content: '╧'
+    }
+
+    .nzu-alignment-bottom-justify:before {
+      content: '═'
+    }
+
     /* SCROLLBARS */
-    ::-webkit-scrollbar {
-      width: 0.25em;
-      height: 0.25em;
+    *::-webkit-scrollbar {
+      width: 0.6rem;
+      height: 0.6rem;
     }
 
-    ::-webkit-scrollbar-button {
-      width: calc(0.25em + 1px);
-      height: calc(0.25em + 1px);
-      background-color: rgba(127, 127, 127, 0.25);
+    *::-webkit-scrollbar-button {
+      /* width: calc(0.6rem + 1px);
+      height: calc(0.6rem + 1px); */
+      /* box-sizing: border-box; */
+      background-color: rgba(127, 127, 127, 0.1);
+      display: block;
     }
 
-    ::-webkit-scrollbar-thumb {
-      background-color: rgba(127, 127, 127, 0.4);
-    }
-
-    ::-webkit-scrollbar-track {
-      background-color: rgba(64, 64, 64, 0.25);
-    }
-
-    ::-webkit-scrollbar-corner {
-      background-color: rgba(64, 64, 64, 0.4);
-    }
-
-    ::-webkit-scrollbar-button:hover {
-      background-color: rgba(127, 127, 127, 0.6);
-    }
-
-    ::-webkit-scrollbar-button:active {
-      background-color: rgba(127, 127, 127, 0.8);
-    }
-
-    ::-webkit-scrollbar-thumb:hover {
-      background-color: rgba(127, 127, 127, 0.6);
-    }
-
-    ::-webkit-scrollbar-thumb:active {
-      background-color: rgba(127, 127, 127, 0.9);
-    }
-
-    ::-webkit-scrollbar-track:hover {
-      background-color: rgba(64, 64, 64, 0.4);
-    }
-
-    ::-webkit-scrollbar-track:active {
-      background-color: rgba(64, 64, 64, 0.4);
-    }
-
-    ::-webkit-scrollbar-button:horizontal {
-      width: calc(0.25em + 2px);
-    }
-
-    ::-webkit-scrollbar-button:vertical {
-      height: calc(0.25em + 2px);
-    }
-
-    ::-webkit-scrollbar-button:horizontal:increment {
-      border-left: 1px solid transparent;
-    }
-
-    ::-webkit-scrollbar-button:horizontal:decrement {
-      border-right: 1px solid transparent;
-    }
-
-    ::-webkit-scrollbar-button:vertical:increment {
-      border-top: 1px solid transparent;
-    }
-
-    ::-webkit-scrollbar-button:vertical:decrement {
-      border-bottom: 1px solid transparent;
-    }
-
-    /* INIT */
-    body {
-      margin: 0;
-      padding: 0;
-      background-color: #14344F;
-      overflow-x: hidden;
-      overflow-y: hidden;
-    }
-
-    .cookie-notification {
-      z-index: 10000000;
-      position: fixed;
-      right: 20%;
-      left: 20%;
-      bottom: 4em;
-      padding: 1em;
-      background-color: rgba(0, 0, 0, .8);
-      color: white;
-      font-family: Calibri, Tahoma, Arial, sans-serif;
-      text-align: center;
-      backdrop-filter: blur(1em);
-    }
-
-    .cookie-notification_hidden_yes {
+    ::-webkit-scrollbar-button:vertical:start:increment,
+    ::-webkit-scrollbar-button:vertical:end:decrement,
+    ::-webkit-scrollbar-button:horizontal:start:increment,
+    ::-webkit-scrollbar-button:horizontal:end:decrement {
       display: none;
     }
 
-    .cookie-notification__header {
-      margin-bottom: 10px;
-      font-size: 23px;
+    *::-webkit-scrollbar-button:vertical {
+      height: calc(0.6rem + 1px);
     }
 
-    .cookie-notification__body {
-      margin-bottom: 10px;
+    *::-webkit-scrollbar-button:vertical:increment {
+      border-top: 0.5px solid transparent;
     }
 
-    .cookie-notification__button {
-      color: #14344F;
-      background-color: white;
-      padding: 0.5em 1em;
-      cursor: pointer;
-      border-radius: 0.25em;
+    *::-webkit-scrollbar-button:vertical:decrement {
+      border-bottom: 0.5px solid transparent;
     }
 
-    .selected {
-      opacity: 0.6;
-    }</style><script defer="defer" src="vendors.js"></script><script defer="defer" src="app.js"></script></head><body id="body"></body></html>
+    *::-webkit-scrollbar-button:horizontal {
+      width: calc(0.6rem + 1px);
+    }
+
+    *::-webkit-scrollbar-button:horizontal:increment {
+      border-left: 0.5px solid transparent;
+    }
+
+    *::-webkit-scrollbar-button:horizontal:decrement {
+      border-right: 0.5px solid transparent;
+    }
+
+    *::-webkit-scrollbar-button:hover {
+      background-color: rgba(127, 127, 127, 0.4);
+    }
+
+    *::-webkit-scrollbar-button:active {
+      background-color: rgba(127, 127, 127, 0.4);
+    }
+
+    *::-webkit-scrollbar-thumb {
+      background-color: rgba(127, 127, 127, 0.25);
+    }
+
+    *::-webkit-scrollbar-thumb:hover {
+      background-color: rgba(127, 127, 127, 0.4);
+    }
+
+    *::-webkit-scrollbar-thumb:active {
+      background-color: rgba(127, 127, 127, 0.4);
+    }
+
+    *::-webkit-scrollbar-track {
+      background-color: transparent;
+    }
+
+    *::-webkit-scrollbar-track:hover {
+      background-color: transparent;
+    }
+
+    *::-webkit-scrollbar-track:active {
+      background-color: transparent;
+    }
+
+    *::-webkit-scrollbar-corner {
+      background-color: transparent;
+    }
+
+    * {
+      scrollbar-color: rgba(127, 127, 127, 0.4) transparent;
+      scrollbar-width: thin;
+    }
+
+    /* AUDIO */
+
+    audio::-webkit-media-controls-enclosure {
+      background-color: inherit;
+    }
+
+    @keyframes global-blink-animation-0-1 {
+      from {
+        outline-offset: -1px;
+        outline: 2px solid red;
+      }
+
+      to {
+        outline-offset: -1px;
+        outline: 2px solid transparent;
+      }
+    }
+
+    @keyframes global-blink-animation-0-2 {
+      from {
+        outline-offset: -1px;
+        outline: 2px solid red;
+      }
+
+      to {
+        outline-offset: -1px;
+        outline: 2px solid transparent;
+      }
+    }
+
+    @keyframes global-blink-animation-1-1 {
+      from {
+        outline-offset: -1px;
+        outline: 2px solid #0000BB;
+      }
+
+      to {
+        outline-offset: -1px;
+        outline: 2px solid transparent;
+      }
+    }
+
+    @keyframes global-blink-animation-1-2 {
+      from {
+        outline-offset: -1px;
+        outline: 2px solid #0000BB;
+      }
+
+      to {
+        outline-offset: -1px;
+        outline: 2px solid transparent;
+      }
+    }
+
+    @keyframes global-blink-animation-2-1 {
+      from {
+        outline-offset: -1px;
+        outline: 2px solid #00BB00;
+      }
+
+      to {
+        outline-offset: -1px;
+        outline: 2px solid transparent;
+      }
+    }
+
+    @keyframes global-blink-animation-2-2 {
+      from {
+        outline-offset: -1px;
+        outline: 2px solid #00BB00;
+      }
+
+      to {
+        outline-offset: -1px;
+        outline: 2px solid transparent;
+      }
+    }
+
+    .ё .ё00 {
+      animation: global-blink-animation-0-1 1.5s ease-in 1 !important;
+    }
+
+    .ё .ё01 {
+      animation: global-blink-animation-0-2 1.5s ease-in 1 !important;
+    }
+
+    .ё .ё10 {
+      animation: global-blink-animation-1-1 1.5s ease-in 1 !important;
+    }
+
+    .ё .ё11 {
+      animation: global-blink-animation-1-2 1.5s ease-in 1 !important;
+    }
+
+    .ё .ё20 {
+      animation: global-blink-animation-2-1 1.5s ease-in 1 !important;
+    }
+
+    .ё .ё21 {
+      animation: global-blink-animation-2-2 1.5s ease-in 1 !important;
+    }
+
+    /* INIT */
+    body,
+    #root {
+      display: flex;
+      flex-direction: column;
+      /* position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0; */
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      /* background-color: #011C2C;
+      color: white; */
+    }
+  </style>
+  <link href="./assets/logo-bc1c149f.png" rel="icon">
+  <!-- Reactronic expects 'global' variable to be 'window'. -->
+  <script>window.global = window</script>
+  
+  <script type="module" crossorigin src="./assets/index-91fcb7a7.js"></script>
+</head>
+
+<body id="body"></body>
+
+</html>

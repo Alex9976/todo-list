@@ -1,4 +1,4 @@
-import { LoggingLevel, nonreactive, ObservableObject, options, reactive, transactional, raw } from 'reactronic'
+import { LoggingLevel, unobs, ObservableObject, options, reactive, transactional, raw } from 'reactronic'
 import { KeyboardModifiers, PointerButton, HtmlSensors } from 'verstak'
 import { Page } from './Page.js'
 import { Task } from './Task.js'
@@ -12,13 +12,13 @@ export class App extends ObservableObject {
   @raw nextItemId: number
   taskList: Task[] = []
 
-  constructor(version: string) {
+  constructor(version: string, e: HTMLElement) {
     super()
     this.completedTasks = 0
     this.currentItemID = 0
     this.nextItemId = 0
     this.version = version
-    this.sensors = new HtmlSensors()
+    this.sensors = new HtmlSensors(e)
     this.homePage = new Page('/home', '<img src="assets/home.svg"/>', 'Todo')
     const saveTasks = JSON.parse(localStorage.getItem('tasks') as string) as Task[]
     if (saveTasks !== null) {
@@ -75,7 +75,7 @@ export class App extends ObservableObject {
   }
 
   @reactive
-  updateTasks(): void {
+  contentTasks(): void {
     this.completedTasks = this.taskList.filter(x => !x.notCompleted).length
     localStorage.setItem('tasks', JSON.stringify(this.taskList))
   }
@@ -84,10 +84,10 @@ export class App extends ObservableObject {
   pointerActions(): void {
     try {
       const pointer = this.sensors.pointer
-      if (pointer.clicked !== undefined) {
-        const action = pointer.clicked
+      if (pointer.clicking !== undefined) {
+        const action = pointer.clicking
         if (action instanceof Function)
-          nonreactive(() => action())
+          unobs(() => action())
       }
     } catch (e) {
       console.error(e)
@@ -98,10 +98,10 @@ export class App extends ObservableObject {
   keyboardActions(): void {
     try {
       const keyboard = this.sensors.keyboard
-      if ((keyboard.down === 'Enter') && (keyboard.modifiers !== KeyboardModifiers.Shift)) {
+      if ((keyboard.down === 'Enter') && (keyboard.modifiers !== KeyboardModifiers.shift)) {
         const action = keyboard.elementDataList[0]
         if (action instanceof Function)
-          nonreactive(() => action())
+          unobs(() => action())
         this.sensors.keyboard.preventDefault = true
       }
     } catch (e) {

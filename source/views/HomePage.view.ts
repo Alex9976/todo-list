@@ -1,4 +1,4 @@
-import { Div, Img, TextArea, UL } from 'verstak'
+import { Div, Img, TextArea, UL } from 'verstak/html'
 import { PageView } from './Page.view.js'
 import { style } from './Page.css.js'
 import { App } from '../models/App.js'
@@ -6,10 +6,10 @@ import { TaskLine } from './TaskLine.view.js'
 
 export function HomePageView(app: App) {
   return (
-    PageView(app.homePage, e => {
+    PageView(app.homePage, () => {
       UL(
         {
-          rebuild(b) {
+          content(b) {
             const e = b.native
             e.className = style.class.List
 
@@ -22,7 +22,7 @@ export function HomePageView(app: App) {
             if (app.completedTasks > 0) {
               Div(
                 {
-                  rebuild(b) {
+                  content(b) {
                     const e = b.native
                     e.className = style.class.CompletedLabel
                     e.innerHTML = 'Completed ' + app.completedTasks.toString()
@@ -37,12 +37,12 @@ export function HomePageView(app: App) {
           }
         })
       Div({
-        rebuild(b) {
+        content(b) {
           const e = b.native
           let inputArea: HTMLTextAreaElement
           e.className = style.class.InputTask
           TextArea({
-            rebuild(b) {
+            content(b) {
               const e = b.native
               inputArea = e
               e.placeholder = 'Enter the task'
@@ -56,7 +56,7 @@ export function HomePageView(app: App) {
             }
           })
           Div({
-            rebuild(b) {
+            content(b) {
               const e = b.native
               e.dataForSensor.click = () => {
                 if (inputArea.value.trim() != '') {
@@ -66,7 +66,7 @@ export function HomePageView(app: App) {
               }
               e.className = style.class.Submit
               Img({
-                rebuild(b) {
+                content(b) {
                   const e = b.native
                   e.src = './source/assets/add.svg'
                 }

@@ -1,8 +1,8 @@
-import { LoggingLevel, Rx } from 'reactronic'
+import { LoggingLevel, ReactiveSystem } from 'reactronic'
 
 export function configureDebugging(): void {
-  Rx.setLoggingMode(true, LoggingLevel.ErrorsOnly)
-  Rx.setProfilingMode(false, {
+  ReactiveSystem.setLoggingMode(true, LoggingLevel.ErrorsOnly)
+  ReactiveSystem.setProfilingMode(false, {
     repetitiveUsageWarningThreshold: Number.MAX_SAFE_INTEGER,
     mainThreadBlockingWarningThreshold: 5,
     asyncActionDurationWarningThreshold: Number.MAX_SAFE_INTEGER,

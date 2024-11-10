@@ -1,4 +1,4 @@
-import { Div, Img, LI } from 'verstak'
+import { Div, Img, LI } from 'verstak/html'
 import { style } from './TaskLine.css.js'
 import { Task } from '../models/Task.js'
 import { App } from '../models/App.js'
@@ -6,7 +6,7 @@ import { App } from '../models/App.js'
 export function TaskLine(id: string, task: Task, app: App) {
   return (
     LI({
-      rebuild(b) {
+      content(b) {
         const e = b.native
         let inputArea: HTMLDivElement
         e.className = style.class.Task
@@ -17,7 +17,7 @@ export function TaskLine(id: string, task: Task, app: App) {
 
         if (!task.isEdit) {
           Div({
-            rebuild(b) {
+            content(b) {
               const e = b.native
               e.dataForSensor.click = () => task.changeActivity()
               e.className = task.notCompleted ? style.class.TaskElement : style.class.InactiveTaskElement
@@ -27,7 +27,7 @@ export function TaskLine(id: string, task: Task, app: App) {
         }
         else {
           Div({
-            rebuild(b) {
+            content(b) {
               const e = b.native
               inputArea = e
               inputArea.contentEditable = 'true'
@@ -43,12 +43,12 @@ export function TaskLine(id: string, task: Task, app: App) {
         }
         if (task.notCompleted) {
           Div({
-            rebuild(b) {
+            content(b) {
               const e = b.native
               e.dataForSensor.click = () => task.isEdit ? app.editTask(task, inputArea.innerHTML) : app.editTask(task)
               e.className = style.class.Edit
               Img({
-                rebuild(b) {
+                content(b) {
                   const e = b.native
                   e.src = task.isEdit ? './source/assets/check.svg' : './source/assets/pencil.svg'
                 }
@@ -57,12 +57,12 @@ export function TaskLine(id: string, task: Task, app: App) {
           })
         }
         Div({
-          rebuild(b) {
+          content(b) {
             const e = b.native
             e.dataForSensor.click = () => { app.deleteTask(task) }
             e.className = task.notCompleted ? style.class.Delete : style.class.InactiveDelete
             Img({
-              rebuild(b) {
+              content(b) {
                 const e = b.native
                 e.src = './source/assets/trash.svg'
               }

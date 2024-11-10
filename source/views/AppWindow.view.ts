@@ -1,8 +1,8 @@
-import { Mode, Div } from 'verstak'
+import { Div } from 'verstak/html'
 import { App } from '../models/App.js'
 import { style } from './AppWindow.css.js'
 import { HomePageView } from './HomePage.view.js'
-
+import { Mode } from 'reactronic'
 
 export function AppWindow(
   key: string,
@@ -10,10 +10,9 @@ export function AppWindow(
   return (
     Div({
       key,
-      mode: Mode.PinpointRebuild,
-      rebuild(b) {
+      mode: Mode.autonomous,
+      content(b) {
         const e = b.native
-        app.sensors.listen(e)
         e.className = style.class.Body
         HomePageView(app)
       }
